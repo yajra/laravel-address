@@ -12,9 +12,7 @@ class Province extends Model
     protected $table = 'provinces';
 
     /**
-     * Indicates if the IDs are auto-incrementing.
-     *
      * @var bool
      */
-    public $incrementing = false;
+    public $timestamps = false;
 }

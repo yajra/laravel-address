@@ -12,9 +12,7 @@ class Region extends Model
     protected $table = 'regions';
 
     /**
-     * Indicates if the IDs are auto-incrementing.
-     *
      * @var bool
      */
-    public $incrementing = false;
+    public $timestamps = false;
 }

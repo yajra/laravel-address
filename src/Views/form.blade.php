@@ -34,7 +34,7 @@
             };
 
             $('#region_id').on('change', function () {
-                $.getJSON('/api/address/provinces/' + this.value, function (data) {
+                $.getJSON('{{config('address.prefix')}}/provinces/' + this.value, function (data) {
                     var options = '';
                     $.each(data, function (index, data) {
                         var selected = '';
@@ -49,7 +49,7 @@
             });
 
             $('#province_id').on('change', function () {
-                $.getJSON('/api/address/cities/' + this.value, function (data) {
+                $.getJSON('{{config('address.prefix')}}/cities/' + this.value, function (data) {
                     var options = '';
                     $.each(data, function (index, data) {
                         var selected = '';
@@ -64,7 +64,7 @@
             });
 
             $('#city_id').on('change', function () {
-                $.getJSON('/api/address/barangays/' + this.value, function (data) {
+                $.getJSON('{{config('address.prefix')}}/barangays/' + this.value, function (data) {
                     var options = '';
                     $.each(data, function (index, data) {
                         var selected = '';

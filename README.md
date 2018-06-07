@@ -40,7 +40,7 @@ $ php artisan vendor:publish
 The default prefix for the api routes is `/api/address`. The default can be updated via config `address.php` file.
 
 - Get All Regions `/api/address/regions`.
-- Get All Provinces `/api/address/provices`.
+- Get All Provinces `/api/address/provinces`.
 - Get Provinces By Region `/api/address/provices/{regionId}`.
 - Get Cities By Province `/api/address/cities/{provinceId}`.
 - Get Barangays By City `/api/address/barangays/{cityId}`.

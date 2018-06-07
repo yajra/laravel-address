@@ -50,6 +50,34 @@ The default prefix for the api routes is `/api/address`. The default can be upda
 - Get Cities By Province `/api/address/cities/{provinceId}`.
 - Get Barangays By City `/api/address/barangays/{cityId}`.
 
+## Usage / Examples
+
+### Add address migration
+
+Add address migration using `$table->address()`. This will add the following fields:
+- street
+- barangay_id
+- city_id
+- province_id
+- region_id
+
+### Include built-in form (Requires jQuery)
+
+On you view, include `@include('address::form', ['model' => $modelWithAddress])`
+
+### Add scripts section on your master layout.
+
+Before the end of body tag, include `@stack('scripts')`.
+
+```php
+<body>
+-- Contents Here ---
+
+<script src="/vendor/jquery.js"></script>
+@stack('scripts')
+</body>
+```
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

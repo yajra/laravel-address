@@ -37,7 +37,7 @@ $ php artisan vendor:publish
 
 ## Routes
 
-The default route prefix for the api routes is `/api/address`. The default can be updated via config `address.php` file.
+The default prefix for the api routes is `/api/address`. The default can be updated via config `address.php` file.
 
 - Get All Regions `/api/address/regions`.
 - Get All Provinces `/api/address/provices`.

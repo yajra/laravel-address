@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-A package for providing Philippines Address lookup with Laravel.
+A package for providing Philippines Address lookup API with Laravel.
 
 ## Install
 
@@ -29,18 +29,15 @@ Yajra\Address\AddressServiceProvider::class
 $ php artisan vendor:publish
 ```
 
-## Config
+## Available Config
 
+`address.prefix` To change the API base route.
+
+`address.middleware` Route middleware.
 
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
-
-## Testing
-
-``` bash
-$ composer test
-```
 
 ## Contributing
 

@@ -55,8 +55,8 @@ class CachingBarangaysRepository extends BarangaysRepositoryEloquent implements 
      */
     public function getByCity($cityId)
     {
-        //        return $this->cache->rememberForever("barangays.{$cityId}", function () use ($cityId) {
-        return $this->repository->getByCity($cityId);
-        //        });
+        return $this->cache->rememberForever("barangays.{$cityId}", function () use ($cityId) {
+            return $this->repository->getByCity($cityId);
+        });
     }
 }

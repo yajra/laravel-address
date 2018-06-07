@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Region extends Model
 {
     /**
-     * The primary key for the model.
-     *
      * @var string
      */
-    protected $primaryKey = 'region_id';
+    protected $table = 'regions';
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -19,9 +17,4 @@ class Region extends Model
      * @var bool
      */
     public $incrementing = false;
-
-    /**
-     * @var string
-     */
-    protected $table = 'regions';
 }

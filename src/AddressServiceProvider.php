@@ -2,6 +2,7 @@
 
 namespace Yajra\Address;
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Yajra\Address\Controllers\BarangaysController;
@@ -38,6 +39,8 @@ class AddressServiceProvider extends ServiceProvider
         }
 
         $this->setupRoutes();
+
+        $this->setupMacro();
     }
 
     protected function setupRoutes()
@@ -54,6 +57,20 @@ class AddressServiceProvider extends ServiceProvider
             Route::get('cities/{regionId}/{provinceId}', CitiesController::class . '@getByRegionAndProvince')
                  ->name('cities.region.province');
             Route::get('barangays/{cityId}', BarangaysController::class . '@getByCity')->name('barangay.city');
+        });
+    }
+
+    protected function setupMacro()
+    {
+        Blueprint::macro('address', function () {
+            $this->unsignedInteger('barangay_id')->index();
+            $this->unsignedInteger('city_id')->index();
+            $this->unsignedInteger('province_id')->index();
+            $this->unsignedInteger('region_id')->index();
+        });
+
+        Blueprint::macro('dropAddress', function () {
+            $this->dropColumn(['region_id', 'province_id', 'city_id', 'barangay_id']);
         });
     }
 

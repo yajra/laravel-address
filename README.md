@@ -35,6 +35,16 @@ $ php artisan vendor:publish
 
 `address.middleware` Route middleware.
 
+## Routes
+
+The default route prefix for the api routes is `/api/address`. The default can be updated via config `address.php` file.
+
+- Get All Regions `/api/address/regions`.
+- Get All Provinces `/api/address/provices`.
+- Get Provinces By Region `/api/address/provices/{regionId}`.
+- Get Cities By Province `/api/address/cities/{provinceId}`.
+- Get Barangays By City `/api/address/barangays/{cityId}`.
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

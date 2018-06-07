@@ -3,7 +3,6 @@
 namespace Yajra\Address\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-use Yajra\CMS\Repositories\RepositoryAbstract;
 
 abstract class EloquentBaseRepository extends RepositoryAbstract implements EloquentRepositoryInterface
 {

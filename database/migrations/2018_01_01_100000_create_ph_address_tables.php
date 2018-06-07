@@ -13,10 +13,6 @@ class CreatePhAddressTables extends Migration
      */
     public function up()
     {
-        if (Schema::hasTable('regions')) {
-            return;
-        }
-
         Schema::create('regions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
@@ -28,7 +24,7 @@ class CreatePhAddressTables extends Migration
             $table->increments('id');
             $table->string('code');
             $table->string('description');
-            $table->string('region_id');
+            $table->string('region_id')->index();
             $table->string('province_id');
         });
 
@@ -36,18 +32,31 @@ class CreatePhAddressTables extends Migration
             $table->increments('id');
             $table->string('code');
             $table->string('description');
-            $table->string('region_id');
-            $table->string('province_id');
+            $table->string('region_id')->index();
+            $table->string('province_id')->index();
             $table->string('city_id');
+
+            $table->index(['province_id', 'region_id'], 'cities_province_regions');
         });
 
         Schema::create('barangays', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
             $table->string('description');
-            $table->string('region_id');
-            $table->string('province_id');
-            $table->string('city_id');
+            $table->string('region_id')->index();
+            $table->string('province_id')->index();
+            $table->string('city_id')->index();
+
+            $table->index(['province_id', 'region_id'], 'barangay_idx_1');
+            $table->index(['city_id', 'province_id', 'region_id'], 'barangay_idx_2');
         });
+    }
+
+    public function down()
+    {
+        Schema::drop('barangays');
+        Schema::drop('cities');
+        Schema::drop('provinces');
+        Schema::drop('regions');
     }
 }

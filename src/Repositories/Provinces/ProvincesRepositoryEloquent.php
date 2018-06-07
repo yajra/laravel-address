@@ -1,8 +1,9 @@
 <?php
 
-namespace Yajra\Address\Repositories;
+namespace Yajra\Address\Repositories\Provinces;
 
-use Yajra\Address\Entities\Utilities\Province;
+use Yajra\Address\Entities\Province;
+use Yajra\Address\Repositories\EloquentBaseRepository;
 
 class ProvincesRepositoryEloquent extends EloquentBaseRepository implements ProvincesRepository
 {

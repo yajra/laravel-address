@@ -1,13 +1,13 @@
 <?php
 
-namespace Yajra\Address\Repositories;
+namespace Yajra\Address\Repositories\Regions;
 
 use Illuminate\Contracts\Cache\Repository as Cache;
 
-class CachingRegionsRepository extends EloquentBaseRepository implements RegionsRepository
+class CachingRegionsRepository extends RegionsRepositoryEloquent implements RegionsRepository
 {
     /**
-     * @var \App\Repositories\Utilities\RegionsRepository
+     * @var RegionsRepository
      */
     protected $repository;
 
@@ -19,8 +19,8 @@ class CachingRegionsRepository extends EloquentBaseRepository implements Regions
     /**
      * CachingRegionsRepository constructor.
      *
-     * @param \App\Repositories\Utilities\RegionsRepository $repository
-     * @param \Illuminate\Contracts\Cache\Repository        $cache
+     * @param RegionsRepository $repository
+     * @param Cache             $cache
      */
     public function __construct(RegionsRepository $repository, Cache $cache)
     {

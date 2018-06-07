@@ -17,24 +17,24 @@ class CreatePhAddressTables extends Migration
             $table->increments('id');
             $table->string('code');
             $table->string('description');
-            $table->string('region_id');
+            $table->string('region_id', 10)->index();
         });
 
         Schema::create('provinces', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
             $table->string('description');
-            $table->string('region_id')->index();
-            $table->string('province_id');
+            $table->string('region_id', 10)->index();
+            $table->string('province_id', 10)->index();
         });
 
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
             $table->string('description');
-            $table->string('region_id')->index();
-            $table->string('province_id')->index();
-            $table->string('city_id');
+            $table->string('region_id', 10)->index();
+            $table->string('province_id', 10)->index();
+            $table->string('city_id', 10)->index();
 
             $table->index(['province_id', 'region_id'], 'cities_province_regions');
         });
@@ -43,9 +43,9 @@ class CreatePhAddressTables extends Migration
             $table->increments('id');
             $table->string('code');
             $table->string('description');
-            $table->string('region_id')->index();
-            $table->string('province_id')->index();
-            $table->string('city_id')->index();
+            $table->string('region_id', 10)->index();
+            $table->string('province_id', 10)->index();
+            $table->string('city_id', 10)->index();
 
             $table->index(['province_id', 'region_id'], 'barangay_idx_1');
             $table->index(['city_id', 'province_id', 'region_id'], 'barangay_idx_2');

@@ -63,10 +63,10 @@ class AddressServiceProvider extends ServiceProvider
     protected function setupMacro()
     {
         Blueprint::macro('address', function () {
-            $this->unsignedInteger('barangay_id')->index();
-            $this->unsignedInteger('city_id')->index();
-            $this->unsignedInteger('province_id')->index();
-            $this->unsignedInteger('region_id')->index();
+            $this->string('barangay_id', 10)->index();
+            $this->string('city_id', 10)->index();
+            $this->string('province_id', 10)->index();
+            $this->string('region_id', 10)->index();
         });
 
         Blueprint::macro('dropAddress', function () {

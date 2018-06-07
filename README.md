@@ -1,4 +1,4 @@
-# Laravel - Philippines Address API 
+# Philippines Address Lookup for Laravel (WIP) 
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)

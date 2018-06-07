@@ -63,6 +63,7 @@ class AddressServiceProvider extends ServiceProvider
     protected function setupMacro()
     {
         Blueprint::macro('address', function () {
+            $this->string('street');
             $this->string('barangay_id', 10)->index();
             $this->string('city_id', 10)->index();
             $this->string('province_id', 10)->index();
@@ -70,7 +71,7 @@ class AddressServiceProvider extends ServiceProvider
         });
 
         Blueprint::macro('dropAddress', function () {
-            $this->dropColumn(['region_id', 'province_id', 'city_id', 'barangay_id']);
+            $this->dropColumn(['region_id', 'province_id', 'city_id', 'barangay_id', 'street']);
         });
     }
 

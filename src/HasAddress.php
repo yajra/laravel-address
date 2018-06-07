@@ -7,6 +7,13 @@ use Yajra\Address\Entities\City;
 use Yajra\Address\Entities\Province;
 use Yajra\Address\Entities\Region;
 
+/**
+ * @property string   street
+ * @property Region   region
+ * @property Province province
+ * @property City     city
+ * @property Barangay barangay
+ */
 trait HasAddress
 {
     /**
@@ -39,5 +46,18 @@ trait HasAddress
     public function barangay()
     {
         return $this->belongsTo(Barangay::class, 'barangay_id');
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddressAttribute()
+    {
+        return sprintf("%s %s %s, %s",
+            $this->street,
+            $this->barangay->description,
+            $this->city->description,
+            $this->province->description
+        );
     }
 }

@@ -35,6 +35,11 @@ $ php artisan vendor:publish
 
 `address.middleware` Route middleware.
 
+## Required Setup (Migration and Seeder)
+
+- Run the address migration. `php artisan migrate` 
+- Run the address seeder. `php artisan db:seed --class=AddressSeeder`
+
 ## Routes
 
 The default prefix for the api routes is `/api/address`. The default can be updated via config `address.php` file.

@@ -25,6 +25,6 @@ class ProvincesRepositoryEloquent extends EloquentBaseRepository implements Prov
      */
     public function getProvinceByRegion($regionId)
     {
-        return Province::query()->where('region_id', $regionId)->orderBy('region_id', 'asc')->get();
+        return Province::query()->where('region_id', $regionId)->orderBy('name', 'asc')->get();
     }
 }

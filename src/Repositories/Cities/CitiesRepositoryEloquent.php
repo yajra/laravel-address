@@ -29,7 +29,7 @@ class CitiesRepositoryEloquent extends EloquentBaseRepository implements CitiesR
         return City::query()
                    ->where('region_id', $regionId)
                    ->where('province_id', $provinceId)
-                   ->orderBy('city_id', 'asc')
+                   ->orderBy('name', 'asc')
                    ->get();
     }
 
@@ -43,7 +43,7 @@ class CitiesRepositoryEloquent extends EloquentBaseRepository implements CitiesR
     {
         return City::query()
                    ->where('region_id', $regionId)
-                   ->orderBy('city_id', 'asc')
+                   ->orderBy('name', 'asc')
                    ->get();
     }
 
@@ -57,7 +57,7 @@ class CitiesRepositoryEloquent extends EloquentBaseRepository implements CitiesR
     {
         return City::query()
                    ->where('province_id', $provinceId)
-                   ->orderBy('city_id', 'asc')
+                   ->orderBy('name', 'asc')
                    ->get();
     }
 }

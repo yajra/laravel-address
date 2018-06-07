@@ -1,0 +1,50 @@
+{
+    "name": "yajra/laravel-address",
+    "description": "A Laravel Philippines Address Lookup API.",
+    "keywords": [
+        "yajra",
+        "laravel",
+        "address"
+    ],
+    "homepage": "https://github.com/yajra/laravel-address",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arjay Angeles",
+            "email": "aqangeles@gmail.com",
+            "homepage": "http://yajrabox.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+      "php": ">=7.0",
+      "illuminate/support": "5.*",
+      "illuminate/filesystem": "5.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yajra\\Address\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Yajra\\Address\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Yajra\\Address\\AddressServiceProvider"
+            ]
+        }
+    }
+}

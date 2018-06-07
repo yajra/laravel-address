@@ -38,9 +38,24 @@ class AddressServiceProvider extends ServiceProvider
             $this->publishes([$config => config_path('address.php')], 'address');
         }
 
+        $this->setupViews();
         $this->setupRoutes();
-
         $this->setupMacro();
+    }
+
+    protected function setupViews()
+    {
+        view()->composer('address::form', function() {
+            /** @var RegionsRepository $repo */
+            $repo = app(RegionsRepository::class);
+            view()->share('regions', $repo->all()->pluck('name', 'region_id'));
+        });
+
+        $this->loadViewsFrom(__DIR__ . '/Views', 'address');
+
+        $this->publishes([
+            __DIR__ . '/Views' => resource_path('views/vendor/address'),
+        ], 'address');
     }
 
     protected function setupRoutes()

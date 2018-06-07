@@ -1,26 +1,26 @@
 <div class="form-group {{$errors->has('region_id')}}">
     <label>Region:</label>
-    {{Form::select('region_id', $regions, null, ['class' => 'form-control', 'id' => 'region_id'])}}
+    {{app('form')->select('region_id', $regions, null, ['class' => 'form-control', 'id' => 'region_id'])}}
     {{$errors->first('region_id')}}
 </div>
 <div class="form-group {{$errors->has('province_id')}}">
     <label>Province:</label>
-    {{Form::select('province_id', [], null, ['class' => 'form-control', 'id' => 'province_id'])}}
+    {{app('form')->select('province_id', [], null, ['class' => 'form-control', 'id' => 'province_id'])}}
     {{$errors->first('province_id')}}
 </div>
 <div class="form-group {{$errors->has('city_id')}}">
     <label>City:</label>
-    {{Form::select('city_id', [], null, ['class' => 'form-control', 'id' => 'city_id'])}}
+    {{app('form')->select('city_id', [], null, ['class' => 'form-control', 'id' => 'city_id'])}}
     {{$errors->first('city_id')}}
 </div>
 <div class="form-group {{$errors->has('barangay_id')}}">
     <label>Barangay:</label>
-    {{Form::select('barangay_id', [], null, ['class' => 'form-control', 'id' => 'barangay_id'])}}
+    {{app('form')->select('barangay_id', [], null, ['class' => 'form-control', 'id' => 'barangay_id'])}}
     {{$errors->first('barangay_id')}}
 </div>
 <div class="form-group {{$errors->has('street')}}">
     <label>Street:</label>
-    {{Form::text('street', null, ['class' => 'form-control'])}}
+    {{app('form')->text('street', null, ['class' => 'form-control'])}}
     {{$errors->first('street')}}
 </div>
 

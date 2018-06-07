@@ -32,8 +32,16 @@ class AddressServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/address.php', 'address');
+        $this->mergeConfigFrom($config = __DIR__ . '/../config/address.php', 'address');
+        if ($this->app->runningInConsole()) {
+            $this->publishes([$config => config_path('address.php')], 'address');
+        }
 
+        $this->setupRoutes();
+    }
+
+    protected function setupRoutes()
+    {
         Route::group([
             'prefix'     => config('address.prefix'),
             'middleware' => config('address.middleware'),

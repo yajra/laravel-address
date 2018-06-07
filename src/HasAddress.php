@@ -55,9 +55,9 @@ trait HasAddress
     {
         return sprintf("%s %s, %s, %s",
             $this->street,
-            $this->barangay->description,
-            $this->city->description,
-            $this->province->description
+            $this->barangay->name,
+            $this->city->name,
+            $this->province->name
         );
     }
 }

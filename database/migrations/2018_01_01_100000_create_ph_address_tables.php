@@ -16,14 +16,14 @@ class CreatePhAddressTables extends Migration
         Schema::create('regions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->string('description');
+            $table->string('name');
             $table->string('region_id', 10)->index();
         });
 
         Schema::create('provinces', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->string('description');
+            $table->string('name');
             $table->string('region_id', 10)->index();
             $table->string('province_id', 10)->index();
         });
@@ -31,7 +31,7 @@ class CreatePhAddressTables extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->string('description');
+            $table->string('name');
             $table->string('region_id', 10)->index();
             $table->string('province_id', 10)->index();
             $table->string('city_id', 10)->index();
@@ -42,7 +42,7 @@ class CreatePhAddressTables extends Migration
         Schema::create('barangays', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->string('description');
+            $table->string('name');
             $table->string('region_id', 10)->index();
             $table->string('province_id', 10)->index();
             $table->string('city_id', 10)->index();

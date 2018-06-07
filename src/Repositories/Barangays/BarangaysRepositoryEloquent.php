@@ -45,7 +45,7 @@ class BarangaysRepositoryEloquent extends EloquentBaseRepository implements Bara
     {
         return Barangay::query()
                        ->where('city_id', $cityId)
-                       ->orderBy('description', 'asc')
+                       ->orderBy('name', 'asc')
                        ->get();
     }
 }

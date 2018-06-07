@@ -1,6 +1,6 @@
 {
     "name": "yajra/laravel-address",
-    "description": "A Laravel Philippines Address Lookup API.",
+    "description": "Philippines Address Lookup API for Laravel.",
     "keywords": [
         "yajra",
         "laravel",

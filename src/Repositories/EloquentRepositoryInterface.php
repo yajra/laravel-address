@@ -3,6 +3,7 @@
 namespace Yajra\Address\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 interface EloquentRepositoryInterface
 {
@@ -26,7 +27,8 @@ interface EloquentRepositoryInterface
      *
      * @param int   $id
      * @param array $columns
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model
+     * @throws ModelNotFoundException
      */
     public function find($id, $columns = ['*']);
 
@@ -34,7 +36,7 @@ interface EloquentRepositoryInterface
      * Save a new entity in repository
      *
      * @param array $attributes
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function create(array $attributes);
 
@@ -42,7 +44,7 @@ interface EloquentRepositoryInterface
      * Make a new entity in repository.
      *
      * @param array $attributes
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function make(array $attributes);
 
@@ -51,7 +53,7 @@ interface EloquentRepositoryInterface
      *
      * @param array     $attributes
      * @param int|mixed $id
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function update(array $attributes, $id);
 
@@ -59,14 +61,14 @@ interface EloquentRepositoryInterface
      * Delete a entity in repository by id.
      *
      * @param int|mixed $id
-     * @return int
+     * @return bool|null
      */
     public function delete($id);
 
     /**
      * Get repository model.
      *
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function getModel();
 

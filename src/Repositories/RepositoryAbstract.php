@@ -28,7 +28,7 @@ abstract class RepositoryAbstract
     /**
      * Get repository model.
      *
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Model
      */
     abstract public function getModel();
 

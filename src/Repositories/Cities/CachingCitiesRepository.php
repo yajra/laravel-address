@@ -31,21 +31,11 @@ class CachingCitiesRepository extends CitiesRepositoryEloquent implements Cities
     }
 
     /**
-     * Get repository model.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
-     */
-    public function getModel()
-    {
-        return $this->repository->getModel();
-    }
-
-    /**
      * Get cities by region ID and province ID.
      *
      * @param int $regionId
      * @param int $provinceId
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getByProvinceAndRegion($regionId, $provinceId)
     {

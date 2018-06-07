@@ -20,16 +20,12 @@ class BarangaysRepositoryEloquent extends EloquentBaseRepository implements Bara
     /**
      * Get barangays by region, province and city ID.
      *
-     * @param int $regionId
-     * @param int $provinceId
      * @param int $cityId
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getByProvinceRegionAndCityId($regionId, $provinceId, $cityId)
+    public function getByCity($cityId)
     {
         return Barangay::query()
-                       ->where('region_id', $regionId)
-                       ->where('province_id', $provinceId)
                        ->where('city_id', $cityId)
                        ->orderBy('name', 'asc')
                        ->get();
@@ -38,12 +34,16 @@ class BarangaysRepositoryEloquent extends EloquentBaseRepository implements Bara
     /**
      * Get barangays by region, province and city ID.
      *
+     * @param int $regionId
+     * @param int $provinceId
      * @param int $cityId
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getByCity($cityId)
+    public function getByProvinceRegionAndCityId($regionId, $provinceId, $cityId)
     {
         return Barangay::query()
+                       ->where('region_id', $regionId)
+                       ->where('province_id', $provinceId)
                        ->where('city_id', $cityId)
                        ->orderBy('name', 'asc')
                        ->get();

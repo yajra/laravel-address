@@ -12,7 +12,7 @@ class CachingRegionsRepository extends RegionsRepositoryEloquent implements Regi
     protected $repository;
 
     /**
-     * @var \Illuminate\Contracts\Cache\Repository
+     * @var Cache
      */
     protected $cache;
 
@@ -29,16 +29,6 @@ class CachingRegionsRepository extends RegionsRepositoryEloquent implements Regi
         $this->cache      = $cache;
 
         parent::__construct();
-    }
-
-    /**
-     * Get repository model.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
-     */
-    public function getModel()
-    {
-        return $this->repository->getModel();
     }
 
     /**

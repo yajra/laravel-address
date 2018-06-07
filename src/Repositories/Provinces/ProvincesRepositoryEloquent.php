@@ -21,7 +21,7 @@ class ProvincesRepositoryEloquent extends EloquentBaseRepository implements Prov
      * Get province by region ID.
      *
      * @param int $regionId
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getProvinceByRegion($regionId)
     {

@@ -3,6 +3,7 @@
 namespace Yajra\Address\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 abstract class EloquentBaseRepository extends RepositoryAbstract implements EloquentRepositoryInterface
 {
@@ -17,7 +18,7 @@ abstract class EloquentBaseRepository extends RepositoryAbstract implements Eloq
     /**
      * Get all records.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function all()
     {
@@ -63,7 +64,7 @@ abstract class EloquentBaseRepository extends RepositoryAbstract implements Eloq
      * Make a new entity in repository.
      *
      * @param array $attributes
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function make(array $attributes)
     {
@@ -75,7 +76,7 @@ abstract class EloquentBaseRepository extends RepositoryAbstract implements Eloq
      *
      * @param array $attributes
      * @param int   $id
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function update(array $attributes, $id)
     {
@@ -96,7 +97,7 @@ abstract class EloquentBaseRepository extends RepositoryAbstract implements Eloq
      * Delete a entity in repository by id.
      *
      * @param int $id
-     * @return int
+     * @return bool|null
      */
     public function delete($id)
     {
@@ -115,7 +116,8 @@ abstract class EloquentBaseRepository extends RepositoryAbstract implements Eloq
      *
      * @param int   $id
      * @param array $columns
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Model
+     * @throws ModelNotFoundException
      */
     public function find($id, $columns = ['*'])
     {

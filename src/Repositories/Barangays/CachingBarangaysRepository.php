@@ -36,7 +36,7 @@ class CachingBarangaysRepository extends BarangaysRepositoryEloquent implements 
      * @param int $regionId
      * @param int $provinceId
      * @param int $cityId
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getByProvinceRegionAndCityId($regionId, $provinceId, $cityId)
     {

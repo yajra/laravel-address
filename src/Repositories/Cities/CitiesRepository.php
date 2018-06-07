@@ -11,7 +11,7 @@ interface CitiesRepository extends EloquentRepositoryInterface
      *
      * @param int $regionId
      * @param int $provinceId
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getByProvinceAndRegion($regionId, $provinceId);
 

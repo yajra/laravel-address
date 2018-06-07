@@ -25,7 +25,10 @@
         "phpunit/phpunit" : "7.*"
     },
     "autoload": {
-        "psr-4": {
+      "classmap": [
+        "database"
+      ],
+      "psr-4": {
             "Yajra\\Address\\": "src"
         }
     },

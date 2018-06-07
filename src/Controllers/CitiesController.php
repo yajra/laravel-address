@@ -25,8 +25,8 @@ class CitiesController extends Controller
     /**
      * Get cities by province.
      *
-     * @param int $provinceId
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @param string $provinceId
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getByProvince($provinceId)
     {
@@ -36,9 +36,9 @@ class CitiesController extends Controller
     /**
      * Get cities by region and province Id.
      *
-     * @param int $regionId
-     * @param int $provinceId
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @param string $regionId
+     * @param string $provinceId
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getByRegionAndProvince($regionId, $provinceId)
     {

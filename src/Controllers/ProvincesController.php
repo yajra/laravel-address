@@ -35,7 +35,7 @@ class ProvincesController extends Controller
     /**
      * Get province by region Id.
      *
-     * @param int $regionId
+     * @param string $regionId
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getByRegion($regionId)

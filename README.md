@@ -46,7 +46,7 @@ The default prefix for the api routes is `/api/address`. The default can be upda
 
 - Get All Regions `/api/address/regions`.
 - Get All Provinces `/api/address/provinces`.
-- Get Provinces By Region `/api/address/provices/{regionId}`.
+- Get Provinces By Region `/api/address/provinces/{regionId}`.
 - Get Cities By Province `/api/address/cities/{provinceId}`.
 - Get Barangays By City `/api/address/barangays/{cityId}`.
 
@@ -63,7 +63,7 @@ Add address migration using `$table->address()`. This will add the following fie
 
 ### Include built-in form (Requires jQuery)
 
-On you view, include `@include('address::form', ['model' => $modelWithAddress])`
+On your view, include `@include('address::form', ['model' => $modelWithAddress])`
 
 ### Add scripts section on your master layout.
 
@@ -81,6 +81,14 @@ Before the end of body tag, include `@stack('scripts')`.
 ## Model with Address Integration
 
 Just use `Yajra\Address\HasAddress` trait on your model to load address models relationship.
+
+```php
+use Yajra\Address\HasAddress;
+
+class User extends Model {
+    use HasAddress;
+}
+```
 
 ## Change log
 

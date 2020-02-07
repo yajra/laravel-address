@@ -21,7 +21,7 @@ trait HasAddress
      */
     public function region()
     {
-        return $this->belongsTo(Region::class, 'region_id', 'region_id');
+        return $this->belongsTo(Region::class, 'region_id', 'region_id')->withDefault();
     }
 
     /**
@@ -29,7 +29,7 @@ trait HasAddress
      */
     public function province()
     {
-        return $this->belongsTo(Province::class, 'province_id', 'province_id');
+        return $this->belongsTo(Province::class, 'province_id', 'province_id')->withDefault();
     }
 
     /**
@@ -37,7 +37,7 @@ trait HasAddress
      */
     public function city()
     {
-        return $this->belongsTo(City::class, 'city_id', 'city_id');
+        return $this->belongsTo(City::class, 'city_id', 'city_id')->withDefault();
     }
 
     /**
@@ -45,7 +45,7 @@ trait HasAddress
      */
     public function barangay()
     {
-        return $this->belongsTo(Barangay::class, 'barangay_id', 'code');
+        return $this->belongsTo(Barangay::class, 'barangay_id', 'code')->withDefault();
     }
 
     /**

@@ -59,19 +59,23 @@ class AddressSeeder extends Seeder
                 }
             });
 
+        $this->command->info(sprintf('Seeding %s regions.', count($regions)));
         $region = config('address.models.region', Region::class);
         $region::query()->insert($regions);
 
+        $this->command->info(sprintf('Seeding %s provinces.', count($provinces)));
         $province = config('address.models.province', Province::class);
         collect($provinces)->chunk(100)->each(function ($chunk) use ($province) {
             $province::query()->insert($chunk->toArray());
         });
 
         $city = config('address.models.city', City::class);
+        $this->command->info(sprintf('Seeding %s cities.', count($cities)));
         collect($cities)->chunk(100)->each(function ($chunk) use ($city) {
             $city::query()->insert($chunk->toArray());
         });
 
+        $this->command->info(sprintf('Seeding %s barangays.', count($barangays)));
         $barangay = config('address.models.barangay', Barangay::class);
         collect($barangays)->chunk(100)->each(function ($chunk) use ($barangay) {
             $barangay::query()->insert($chunk->toArray());

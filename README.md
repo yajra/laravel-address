@@ -78,6 +78,10 @@ Before the end of body tag, include `@stack('scripts')`.
 </body>
 ```
 
+## Model with Address Integration
+
+Just use `Yajra\Address\HasAddress` trait on your model to load address models relationship.
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

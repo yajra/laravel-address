@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Yajra\Address\Entities\City;
+use Yajra\Address\Entities\Region;
 use Yajra\Address\Entities\Barangay;
+use Yajra\Address\Entities\Province;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 class AddressSeeder extends Seeder
@@ -24,6 +27,7 @@ class AddressSeeder extends Seeder
         $cities    = [];
         $barangays = [];
 
+        $this->command->info(sprintf('Parsing PSA official PSGC publication (%s).', $publication));
         (new FastExcel)
             ->sheet($sheet)
             ->import($publication, function ($line) use (&$regions, &$provinces, &$cities, &$barangays) {
@@ -41,6 +45,9 @@ class AddressSeeder extends Seeder
                         $attributes['province_id'] = substr($attributes['code'], 0, 4);
 
                         $provinces[] = $attributes;
+                        break;
+
+                    case 'Dist':
                         break;
 
                     case 'Bgy':
@@ -70,7 +77,7 @@ class AddressSeeder extends Seeder
         });
 
         $city = config('address.models.city', City::class);
-        $this->command->info(sprintf('Seeding %s cities.', count($cities)));
+        $this->command->info(sprintf('Seeding %s cities & municipalities.', count($cities)));
         collect($cities)->chunk(100)->each(function ($chunk) use ($city) {
             $city::query()->insert($chunk->toArray());
         });

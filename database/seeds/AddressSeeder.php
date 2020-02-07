@@ -41,13 +41,11 @@ class AddressSeeder extends Seeder
                         $regions[] = $attributes;
                         break;
 
+                    case 'Dist':
                     case 'Prov':
                         $attributes['province_id'] = substr($attributes['code'], 0, 4);
 
                         $provinces[] = $attributes;
-                        break;
-
-                    case 'Dist':
                         break;
 
                     case 'Bgy':
@@ -57,7 +55,7 @@ class AddressSeeder extends Seeder
                         $barangays[] = $attributes;
                         break;
 
-                    default:
+                    default: // City, SubMun, Mun
                         $attributes['province_id'] = substr($attributes['code'], 0, 4);
                         $attributes['city_id']     = substr($attributes['code'], 0, 6);
 

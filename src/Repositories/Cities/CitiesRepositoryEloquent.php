@@ -8,16 +8,6 @@ use Yajra\Address\Repositories\EloquentBaseRepository;
 class CitiesRepositoryEloquent extends EloquentBaseRepository implements CitiesRepository
 {
     /**
-     * Get repository model.
-     *
-     * @return City
-     */
-    public function getModel()
-    {
-        return new City;
-    }
-
-    /**
      * Get cities by region ID and province ID.
      *
      * @param int $regionId
@@ -26,11 +16,24 @@ class CitiesRepositoryEloquent extends EloquentBaseRepository implements CitiesR
      */
     public function getByProvinceAndRegion($regionId, $provinceId)
     {
-        return City::query()
-                   ->where('region_id', $regionId)
-                   ->where('province_id', $provinceId)
-                   ->orderBy('name', 'asc')
-                   ->get();
+        return $this->getModel()
+                    ->newQuery()
+                    ->where('region_id', $regionId)
+                    ->where('province_id', $provinceId)
+                    ->orderBy('name', 'asc')
+                    ->get();
+    }
+
+    /**
+     * Get repository model.
+     *
+     * @return City
+     */
+    public function getModel()
+    {
+        $model = config('address.models.city', City::class);
+
+        return new $model;
     }
 
     /**
@@ -41,10 +44,11 @@ class CitiesRepositoryEloquent extends EloquentBaseRepository implements CitiesR
      */
     public function getByRegion($regionId)
     {
-        return City::query()
-                   ->where('region_id', $regionId)
-                   ->orderBy('name', 'asc')
-                   ->get();
+        return $this->getModel()
+                    ->newQuery()
+                    ->where('region_id', $regionId)
+                    ->orderBy('name', 'asc')
+                    ->get();
     }
 
     /**
@@ -55,9 +59,10 @@ class CitiesRepositoryEloquent extends EloquentBaseRepository implements CitiesR
      */
     public function getByProvince($provinceId)
     {
-        return City::query()
-                   ->where('province_id', $provinceId)
-                   ->orderBy('name', 'asc')
-                   ->get();
+        return $this->getModel()
+                    ->newQuery()
+                    ->where('province_id', $provinceId)
+                    ->orderBy('name', 'asc')
+                    ->get();
     }
 }

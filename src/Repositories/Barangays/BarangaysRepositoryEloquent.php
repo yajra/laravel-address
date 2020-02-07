@@ -8,16 +8,6 @@ use Yajra\Address\Repositories\EloquentBaseRepository;
 class BarangaysRepositoryEloquent extends EloquentBaseRepository implements BarangaysRepository
 {
     /**
-     * Get repository model.
-     *
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function getModel()
-    {
-        return new Barangay;
-    }
-
-    /**
      * Get barangays by region, province and city ID.
      *
      * @param int $cityId
@@ -25,10 +15,23 @@ class BarangaysRepositoryEloquent extends EloquentBaseRepository implements Bara
      */
     public function getByCity($cityId)
     {
-        return Barangay::query()
-                       ->where('city_id', $cityId)
-                       ->orderBy('name', 'asc')
-                       ->get();
+        return $this->getModel()
+                    ->newQuery()
+                    ->where('city_id', $cityId)
+                    ->orderBy('name', 'asc')
+                    ->get();
+    }
+
+    /**
+     * Get repository model.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getModel()
+    {
+        $model = config('address.models.barangay', Barangay::class);
+
+        return new $model;
     }
 
     /**
@@ -41,11 +44,12 @@ class BarangaysRepositoryEloquent extends EloquentBaseRepository implements Bara
      */
     public function getByProvinceRegionAndCityId($regionId, $provinceId, $cityId)
     {
-        return Barangay::query()
-                       ->where('region_id', $regionId)
-                       ->where('province_id', $provinceId)
-                       ->where('city_id', $cityId)
-                       ->orderBy('name', 'asc')
-                       ->get();
+        return $this->getModel()
+                    ->newQuery()
+                    ->where('region_id', $regionId)
+                    ->where('province_id', $provinceId)
+                    ->where('city_id', $cityId)
+                    ->orderBy('name', 'asc')
+                    ->get();
     }
 }

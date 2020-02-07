@@ -8,16 +8,6 @@ use Yajra\Address\Repositories\EloquentBaseRepository;
 class ProvincesRepositoryEloquent extends EloquentBaseRepository implements ProvincesRepository
 {
     /**
-     * Get repository model.
-     *
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function getModel()
-    {
-        return new Province;
-    }
-
-    /**
      * Get province by region ID.
      *
      * @param int $regionId
@@ -25,6 +15,18 @@ class ProvincesRepositoryEloquent extends EloquentBaseRepository implements Prov
      */
     public function getProvinceByRegion($regionId)
     {
-        return Province::query()->where('region_id', $regionId)->orderBy('name', 'asc')->get();
+        return $this->getModel()->newQuery()->where('region_id', $regionId)->orderBy('name', 'asc')->get();
+    }
+
+    /**
+     * Get repository model.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getModel()
+    {
+        $model = config('address.models.province', Province::class);
+
+        return new $model;
     }
 }

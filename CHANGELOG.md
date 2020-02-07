@@ -2,6 +2,12 @@
 
 All Notable changes to `laravel-address` will be documented in this file
 
+## v0.2.0 - 2020-02-07
+
+- Make model configurable.
+- Seed database from PSA official PSGC publication as of Dec 2019.
+- Update table structure, column size and index.
+
 ## v0.1.3 - 2018-06-08
 
 - Patch doc blocks.

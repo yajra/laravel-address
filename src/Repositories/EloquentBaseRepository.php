@@ -98,6 +98,7 @@ abstract class EloquentBaseRepository extends RepositoryAbstract implements Eloq
      *
      * @param int $id
      * @return bool|null
+     * @throws \Exception
      */
     public function delete($id)
     {

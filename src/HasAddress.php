@@ -2,16 +2,21 @@
 
 namespace Yajra\Address;
 
-use Yajra\Address\Entities\Barangay;
 use Yajra\Address\Entities\City;
-use Yajra\Address\Entities\Province;
 use Yajra\Address\Entities\Region;
+use Yajra\Address\Entities\Province;
+use Yajra\Address\Entities\Barangay;
 
 /**
- * @property string   street
- * @property Region   region
+ * @property string address
+ * @property string street
+ * @property string region_id
+ * @property Region region
+ * @property string province_id
  * @property Province province
- * @property City     city
+ * @property string city_id
+ * @property City city
+ * @property string barangay_id
  * @property Barangay barangay
  */
 trait HasAddress
@@ -21,7 +26,7 @@ trait HasAddress
      */
     public function region()
     {
-        return $this->belongsTo(Region::class, 'region_id', 'region_id')->withDefault();
+        return $this->belongsTo(config('address.model.region', Region::class), 'region_id', 'region_id')->withDefault();
     }
 
     /**
@@ -29,7 +34,7 @@ trait HasAddress
      */
     public function province()
     {
-        return $this->belongsTo(Province::class, 'province_id', 'province_id')->withDefault();
+        return $this->belongsTo(config('address.model.province', Province::class), 'province_id', 'province_id')->withDefault();
     }
 
     /**
@@ -37,7 +42,7 @@ trait HasAddress
      */
     public function city()
     {
-        return $this->belongsTo(City::class, 'city_id', 'city_id')->withDefault();
+        return $this->belongsTo(config('address.model.city', City::class), 'city_id', 'city_id')->withDefault();
     }
 
     /**
@@ -45,7 +50,7 @@ trait HasAddress
      */
     public function barangay()
     {
-        return $this->belongsTo(Barangay::class, 'barangay_id', 'code')->withDefault();
+        return $this->belongsTo(config('address.model.barangay', Barangay::class), 'barangay_id', 'code')->withDefault();
     }
 
     /**

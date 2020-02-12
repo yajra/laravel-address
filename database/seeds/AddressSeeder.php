@@ -43,6 +43,7 @@ class AddressSeeder extends Seeder
 
                     case 'Dist':
                     case 'Prov':
+                    case '':
                         $attributes['province_id'] = substr($attributes['code'], 0, 4);
 
                         $provinces[] = $attributes;

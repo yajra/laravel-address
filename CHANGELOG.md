@@ -2,6 +2,10 @@
 
 All Notable changes to `laravel-address` will be documented in this file
 
+## v0.2.1 - 2020-02-12
+
+- Fix empty geographical level, should be stored in province.
+
 ## v0.2.0 - 2020-02-07
 
 - Make model configurable.

@@ -2,6 +2,11 @@
 
 All Notable changes to `laravel-address` will be documented in this file
 
+## v0.4.0 - 2021-03-24
+
+- Allow Laravel 8.
+- Fix #1
+
 ## v0.3.0 - 2020-03-07
 
 - Allow Laravel 7.

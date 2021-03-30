@@ -2,6 +2,11 @@
 
 All Notable changes to `laravel-address` will be documented in this file
 
+## v0.5.0 - 2021-03-30
+
+- Allow fast-excel ^2.5 package.
+- Remove php constraint.
+
 ## v0.4.0 - 2021-03-24
 
 - Allow Laravel 8.

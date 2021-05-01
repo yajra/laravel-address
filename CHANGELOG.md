@@ -2,6 +2,11 @@
 
 All Notable changes to `laravel-address` will be documented in this file
 
+## v0.6.0 - 2021-05-01
+
+- Update seeder to use PSGC 2020 publication.
+- Fix seeder command when using Laravel 8.
+
 ## v0.5.0 - 2021-03-30
 
 - Allow fast-excel ^2.5 package.

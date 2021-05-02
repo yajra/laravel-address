@@ -21,7 +21,7 @@
         "illuminate/routing": "^5.5|^6|^7|^8",
         "illuminate/database": "^5.5|^6|^7|^8",
         "laravelcollective/html": "^5.5|^6|^7|^8",
-        "rap2hpoutre/fast-excel": "^1.6|^2.5"
+        "rap2hpoutre/fast-excel": "^1.6|^2.5|^3.0"
     },
     "require-dev": {
         "phpunit/phpunit" : "*"

@@ -2,6 +2,11 @@
 
 All Notable changes to `laravel-address` will be documented in this file
 
+## v0.7.0 - 2022-09-29
+
+- Add laravel 9 #12
+- Fix #10
+
 ## v0.6.1 - 2021-05-02
 
 - Allow fast-excel 3.0.

@@ -8,16 +8,16 @@ use Yajra\Address\Entities\Province;
 use Yajra\Address\Entities\Barangay;
 
 /**
- * @property string address
- * @property string street
- * @property string region_id
- * @property Region region
- * @property string province_id
- * @property Province province
- * @property string city_id
- * @property City city
- * @property string barangay_id
- * @property Barangay barangay
+ * @property string $address
+ * @property string $street
+ * @property string $region_id
+ * @property Region $region
+ * @property string $province_id
+ * @property Province $province
+ * @property string $city_id
+ * @property City $city
+ * @property string $barangay_id
+ * @property Barangay $barangay
  */
 trait HasAddress
 {

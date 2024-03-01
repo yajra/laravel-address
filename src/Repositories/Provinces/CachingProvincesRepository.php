@@ -34,7 +34,7 @@ class CachingProvincesRepository extends ProvincesRepositoryEloquent implements 
      * Get province by region ID.
      *
      * @param int $regionId
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Collection<array-key, \Yajra\Address\Entities\Province>
      */
     public function getProvinceByRegion($regionId)
     {

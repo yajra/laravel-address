@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Yajra\Address\Entities\City;
-use Yajra\Address\Entities\Region;
-use Yajra\Address\Entities\Barangay;
-use Yajra\Address\Entities\Province;
 use Rap2hpoutre\FastExcel\FastExcel;
+use Yajra\Address\Entities\Barangay;
+use Yajra\Address\Entities\City;
+use Yajra\Address\Entities\Province;
+use Yajra\Address\Entities\Region;
 
 class AddressSeeder extends Seeder
 {
@@ -13,27 +13,28 @@ class AddressSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     *
      * @throws \Box\Spout\Common\Exception\IOException
      * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Reader\Exception\ReaderNotOpenedException
      */
     public function run()
     {
-        $publication = config('address.publication.path', __DIR__ . '/publication/PSGC_Publication_Dec2019.xlsx');
-        $sheet       = config('address.publication.sheet', 4);
+        $publication = config('address.publication.path', __DIR__.'/publication/PSGC_Publication_Dec2019.xlsx');
+        $sheet = config('address.publication.sheet', 4);
 
-        $regions   = [];
+        $regions = [];
         $provinces = [];
-        $cities    = [];
+        $cities = [];
         $barangays = [];
 
         $this->command->info(sprintf('Parsing PSA official PSGC publication (%s).', $publication));
         (new FastExcel)
             ->sheet($sheet)
             ->import($publication, function ($line) use (&$regions, &$provinces, &$cities, &$barangays) {
-                $attributes              = [];
-                $attributes['code']      = $line['Code'];
-                $attributes['name']      = $line['Name'];
+                $attributes = [];
+                $attributes['code'] = $line['Code'];
+                $attributes['name'] = $line['Name'];
                 $attributes['region_id'] = substr($attributes['code'], 0, 2);
 
                 switch ($line['Geographic Level']) {
@@ -51,14 +52,14 @@ class AddressSeeder extends Seeder
 
                     case 'Bgy':
                         $attributes['province_id'] = substr($attributes['code'], 0, 4);
-                        $attributes['city_id']     = substr($attributes['code'], 0, 6);
+                        $attributes['city_id'] = substr($attributes['code'], 0, 6);
 
                         $barangays[] = $attributes;
                         break;
 
                     default: // City, SubMun, Mun
                         $attributes['province_id'] = substr($attributes['code'], 0, 4);
-                        $attributes['city_id']     = substr($attributes['code'], 0, 6);
+                        $attributes['city_id'] = substr($attributes['code'], 0, 6);
 
                         $cities[] = $attributes;
                         break;

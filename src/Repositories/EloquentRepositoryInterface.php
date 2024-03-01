@@ -2,81 +2,60 @@
 
 namespace Yajra\Address\Repositories;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 interface EloquentRepositoryInterface
 {
     /**
      * Get all records.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Collection<array-key, \Illuminate\Database\Eloquent\Model>
      */
-    public function all();
+    public function all(): Collection;
 
     /**
      * Paginate records.
-     *
-     * @param int $limit
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginate($limit = 10);
+    public function paginate(int $limit = 10): LengthAwarePaginator;
 
     /**
      * Find data by id.
      *
-     * @param int   $id
-     * @param array $columns
-     * @return \Illuminate\Database\Eloquent\Model
-     * @throws ModelNotFoundException
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function find($id, $columns = ['*']);
+    public function find(int $id, array $columns = ['*']): Model;
 
     /**
      * Save a new entity in repository
-     *
-     * @param array $attributes
-     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function create(array $attributes);
+    public function create(array $attributes): Model;
 
     /**
      * Make a new entity in repository.
-     *
-     * @param array $attributes
-     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function make(array $attributes);
+    public function make(array $attributes): Model;
 
     /**
      * Update a entity in repository by id.
-     *
-     * @param array     $attributes
-     * @param int|mixed $id
-     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function update(array $attributes, $id);
+    public function update(array $attributes, Model|int $id): Model;
 
     /**
      * Delete a entity in repository by id.
-     *
-     * @param int|mixed $id
-     * @return bool|null
      */
-    public function delete($id);
+    public function delete(Model|int $id): ?bool;
 
     /**
      * Get repository model.
-     *
-     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getModel();
+    public function getModel(): Model;
 
     /**
      * Set repository model instance.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
      * @return $this
      */
-    public function forModel(Model $model);
+    public function forModel(Model $model): static;
 }

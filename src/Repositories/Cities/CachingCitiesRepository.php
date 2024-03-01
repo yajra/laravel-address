@@ -3,76 +3,34 @@
 namespace Yajra\Address\Repositories\Cities;
 
 use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Database\Eloquent\Collection;
 
 class CachingCitiesRepository extends CitiesRepositoryEloquent implements CitiesRepository
 {
-    /**
-     * @var CitiesRepository
-     */
-    protected $repository;
-
-    /**
-     * @var \Illuminate\Contracts\Cache\Repository
-     */
-    protected $cache;
-
-    /**
-     * CachingCitiesRepository constructor.
-     *
-     * @param CitiesRepository $repository
-     * @param Cache            $cache
-     */
-    public function __construct(CitiesRepository $repository, Cache $cache)
+    public function __construct(public CitiesRepository $repository, public Cache $cache)
     {
-        $this->repository = $repository;
-        $this->cache      = $cache;
-
         parent::__construct();
     }
 
-    /**
-     * Get cities by region ID and province ID.
-     *
-     * @param int $regionId
-     * @param int $provinceId
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getByProvinceAndRegion($regionId, $provinceId)
+    public function getByProvinceAndRegion(string $regionId, string $provinceId): Collection
     {
         $key = "cities.{$regionId}.{$provinceId}";
 
-        return $this->cache->rememberForever($key, function () use ($regionId, $provinceId) {
-            return $this->repository->getByProvinceAndRegion($regionId, $provinceId);
-        });
+        return $this->cache->rememberForever($key,
+            fn () => $this->repository->getByProvinceAndRegion($regionId, $provinceId));
     }
 
-    /**
-     * Get cities by province.
-     *
-     * @param int $provinceId
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getByProvince($provinceId)
+    public function getByProvince(string $provinceId): Collection
     {
         $key = "cities.{$provinceId}";
 
-        return $this->cache->rememberForever($key, function () use ($provinceId) {
-            return $this->repository->getByProvince($provinceId);
-        });
+        return $this->cache->rememberForever($key, fn () => $this->repository->getByProvince($provinceId));
     }
 
-    /**
-     * Get cities by region.
-     *
-     * @param int $regionId
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getByRegion($regionId)
+    public function getByRegion(string $regionId): Collection
     {
         $key = "cities.region.{$regionId}";
 
-        return $this->cache->rememberForever($key, function () use ($regionId) {
-            return $this->repository->getByRegion($regionId);
-        });
+        return $this->cache->rememberForever($key, fn () => $this->repository->getByRegion($regionId));
     }
 }

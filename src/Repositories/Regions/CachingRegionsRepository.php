@@ -3,43 +3,20 @@
 namespace Yajra\Address\Repositories\Regions;
 
 use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Database\Eloquent\Collection;
 
 class CachingRegionsRepository extends RegionsRepositoryEloquent implements RegionsRepository
 {
-    /**
-     * @var RegionsRepository
-     */
-    protected $repository;
-
-    /**
-     * @var Cache
-     */
-    protected $cache;
-
-    /**
-     * CachingRegionsRepository constructor.
-     *
-     * @param RegionsRepository $repository
-     * @param Cache             $cache
-     */
-    public function __construct(RegionsRepository $repository, Cache $cache)
+    public function __construct(public RegionsRepository $repository, public Cache $cache)
     {
-
-        $this->repository = $repository;
-        $this->cache      = $cache;
-
         parent::__construct();
     }
 
     /**
-     * Get all records.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Collection<array-key, \Yajra\Address\Entities\Region>
      */
-    public function all()
+    public function all(): Collection
     {
-        return $this->cache->rememberForever('regions.all', function () {
-            return $this->repository->getModel()->query()->orderBy('region_id', 'asc')->get();
-        });
+        return $this->cache->rememberForever('regions.all', fn () => $this->repository->getModel()->query()->orderBy('region_id', 'asc')->get());
     }
 }

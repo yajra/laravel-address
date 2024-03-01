@@ -2,47 +2,29 @@
 
 namespace Yajra\Address\Repositories;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 abstract class EloquentBaseRepository extends RepositoryAbstract implements EloquentRepositoryInterface
 {
-    /**
-     * BaseRepository constructor.
-     */
     public function __construct()
     {
         $this->model = $this->getModel();
     }
 
-    /**
-     * Get all records.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function all()
+    public function all(): Collection
     {
         return $this->model->newQuery()->get();
     }
 
-    /**
-     * Paginate records.
-     *
-     * @param int $limit
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function paginate($limit = 10)
+    public function paginate(int $limit = 10): LengthAwarePaginator
     {
         return $this->model->newQuery()->paginate($limit);
     }
 
-    /**
-     * Save a new entity in repository.
-     *
-     * @param array $attributes
-     * @return mixed
-     */
-    public function create(array $attributes)
+    public function create(array $attributes): Model
     {
         $model = $this->model->newInstance($attributes);
         $model->save();
@@ -52,39 +34,23 @@ abstract class EloquentBaseRepository extends RepositoryAbstract implements Eloq
         return $model;
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
-     */
-    public function resetModel()
+    public function resetModel(): Model
     {
         return $this->model = $this->getModel();
     }
 
-    /**
-     * Make a new entity in repository.
-     *
-     * @param array $attributes
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function make(array $attributes)
+    public function make(array $attributes): Model
     {
         return $this->model->forceFill($attributes);
     }
 
-    /**
-     * Update a entity in repository by id.
-     *
-     * @param array $attributes
-     * @param int   $id
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function update(array $attributes, $id)
+    public function update(array $attributes, Model|int $id): Model
     {
         if ($id instanceof Model) {
             $id = $id->getKey();
         }
 
-        $model = $this->model->findOrFail($id);
+        $model = $this->model->newQuery()->findOrFail($id);
         $model->fill($attributes);
         $model->save();
 
@@ -94,13 +60,9 @@ abstract class EloquentBaseRepository extends RepositoryAbstract implements Eloq
     }
 
     /**
-     * Delete a entity in repository by id.
-     *
-     * @param int $id
-     * @return bool|null
      * @throws \Exception
      */
-    public function delete($id)
+    public function delete(Model|int $id): ?bool
     {
         if ($id instanceof Model) {
             $id = $id->getKey();
@@ -113,41 +75,25 @@ abstract class EloquentBaseRepository extends RepositoryAbstract implements Eloq
     }
 
     /**
-     * Find data by id.
-     *
-     * @param int   $id
-     * @param array $columns
-     * @return \Illuminate\Database\Eloquent\Model
      * @throws ModelNotFoundException
      */
-    public function find($id, $columns = ['*'])
+    public function find(int $id, array $columns = ['*']): Model
     {
-        $model = $this->model->findOrFail($id, $columns);
+        $model = $this->model->newQuery()->findOrFail($id, $columns);
         $this->resetModel();
 
         return $model;
     }
 
-    /**
-     * Set repository model instance.
-     *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @return $this
-     */
-    public function forModel(Model $model)
+    public function forModel(Model $model): static
     {
         $this->model = $model;
 
         return $this;
     }
 
-    /**
-     * Count all records.
-     *
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
-        return $this->model->count();
+        return $this->model->newQuery()->count();
     }
 }

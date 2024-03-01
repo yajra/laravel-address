@@ -26,14 +26,12 @@ class AddressServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        $this->mergeConfigFrom($config = __DIR__ . '/../config/address.php', 'address');
+        $this->mergeConfigFrom($config = __DIR__.'/../config/address.php', 'address');
         if ($this->app->runningInConsole()) {
             $this->publishes([$config => config_path('address.php')], 'address');
         }
@@ -43,39 +41,39 @@ class AddressServiceProvider extends ServiceProvider
         $this->setupMacro();
     }
 
-    protected function setupViews()
+    protected function setupViews(): void
     {
-        view()->composer('address::form', function() {
+        view()->composer('address::form', function () {
             /** @var RegionsRepository $repo */
             $repo = app(RegionsRepository::class);
             view()->share('regions', $repo->all()->pluck('name', 'region_id'));
         });
 
-        $this->loadViewsFrom(__DIR__ . '/Views', 'address');
+        $this->loadViewsFrom(__DIR__.'/Views', 'address');
 
         $this->publishes([
-            __DIR__ . '/Views' => resource_path('views/vendor/address'),
+            __DIR__.'/Views' => resource_path('views/vendor/address'),
         ], 'address');
     }
 
-    protected function setupRoutes()
+    protected function setupRoutes(): void
     {
         Route::group([
-            'prefix'     => config('address.prefix'),
+            'prefix' => config('address.prefix'),
             'middleware' => config('address.middleware'),
-            'as'         => 'address.',
+            'as' => 'address.',
         ], function () {
-            Route::get('regions', RegionsController::class . '@all')->name('regions.all');
-            Route::get('provinces', ProvincesController::class . '@all')->name('provinces.all');
-            Route::get('provinces/{regionId}', ProvincesController::class . '@getByRegion')->name('provinces.region');
-            Route::get('cities/{provinceId}', CitiesController::class . '@getByProvince')->name('cities.province');
-            Route::get('cities/{regionId}/{provinceId}', CitiesController::class . '@getByRegionAndProvince')
-                 ->name('cities.region.province');
-            Route::get('barangays/{cityId}', BarangaysController::class . '@getByCity')->name('barangay.city');
+            Route::get('regions', RegionsController::class.'@all')->name('regions.all');
+            Route::get('provinces', ProvincesController::class.'@all')->name('provinces.all');
+            Route::get('provinces/{regionId}', ProvincesController::class.'@getByRegion')->name('provinces.region');
+            Route::get('cities/{provinceId}', CitiesController::class.'@getByProvince')->name('cities.province');
+            Route::get('cities/{regionId}/{provinceId}', CitiesController::class.'@getByRegionAndProvince')
+                ->name('cities.region.province');
+            Route::get('barangays/{cityId}', BarangaysController::class.'@getByCity')->name('barangay.city');
         });
     }
 
-    protected function setupMacro()
+    protected function setupMacro(): void
     {
         Blueprint::macro('address', function () {
             $this->string('street')->nullable();
@@ -92,34 +90,24 @@ class AddressServiceProvider extends ServiceProvider
 
     /**
      * Register services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->app->singleton(RegionsRepository::class, function () {
-            return new CachingRegionsRepository(
-                $this->app->make(RegionsRepositoryEloquent::class),
-                $this->app['cache.store']
-            );
-        });
-        $this->app->singleton(ProvincesRepository::class, function () {
-            return new CachingProvincesRepository(
-                $this->app->make(ProvincesRepositoryEloquent::class),
-                $this->app['cache.store']
-            );
-        });
-        $this->app->singleton(CitiesRepository::class, function () {
-            return new CachingCitiesRepository(
-                $this->app->make(CitiesRepositoryEloquent::class),
-                $this->app['cache.store']
-            );
-        });
-        $this->app->singleton(BarangaysRepository::class, function () {
-            return new CachingBarangaysRepository(
-                $this->app->make(BarangaysRepositoryEloquent::class),
-                $this->app['cache.store']
-            );
-        });
+        $this->app->singleton(RegionsRepository::class, fn () => new CachingRegionsRepository(
+            $this->app->make(RegionsRepositoryEloquent::class),
+            $this->app['cache.store']
+        ));
+        $this->app->singleton(ProvincesRepository::class, fn () => new CachingProvincesRepository(
+            $this->app->make(ProvincesRepositoryEloquent::class),
+            $this->app['cache.store']
+        ));
+        $this->app->singleton(CitiesRepository::class, fn () => new CachingCitiesRepository(
+            $this->app->make(CitiesRepositoryEloquent::class),
+            $this->app['cache.store']
+        ));
+        $this->app->singleton(BarangaysRepository::class, fn () => new CachingBarangaysRepository(
+            $this->app->make(BarangaysRepositoryEloquent::class),
+            $this->app['cache.store']
+        ));
     }
 }

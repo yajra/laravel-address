@@ -8,24 +8,16 @@ use Yajra\Address\Repositories\Cities\CitiesRepository;
 class CitiesController extends Controller
 {
     /**
-     * @var CitiesRepository
-     */
-    protected $repository;
-
-    /**
      * CitiesController constructor.
-     *
-     * @param CitiesRepository $repository
      */
-    public function __construct(CitiesRepository $repository)
+    public function __construct(protected CitiesRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     /**
      * Get cities by province.
      *
-     * @param string $provinceId
+     * @param  string  $provinceId
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getByProvince($provinceId)
@@ -36,8 +28,8 @@ class CitiesController extends Controller
     /**
      * Get cities by region and province Id.
      *
-     * @param string $regionId
-     * @param string $provinceId
+     * @param  string  $regionId
+     * @param  string  $provinceId
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getByRegionAndProvince($regionId, $provinceId)

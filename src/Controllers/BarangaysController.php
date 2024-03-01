@@ -8,22 +8,14 @@ use Yajra\Address\Repositories\Barangays\BarangaysRepository;
 class BarangaysController extends Controller
 {
     /**
-     * @var BarangaysRepository
-     */
-    protected $repository;
-
-    /**
      * BarangaysController constructor.
-     *
-     * @param BarangaysRepository $repository
      */
-    public function __construct(BarangaysRepository $repository)
+    public function __construct(protected BarangaysRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     /**
-     * @param string $cityId
+     * @param  string  $cityId
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getByCity($cityId)
@@ -34,9 +26,9 @@ class BarangaysController extends Controller
     /**
      * Get barangays by region, province and city ID.
      *
-     * @param string $regionId
-     * @param string $provinceId
-     * @param string $cityId
+     * @param  string  $regionId
+     * @param  string  $provinceId
+     * @param  string  $cityId
      * @return string
      */
     public function getBarangaysByRegionProvinceCityId($regionId, $provinceId, $cityId)

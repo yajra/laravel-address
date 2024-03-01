@@ -2,54 +2,40 @@
 
 namespace Yajra\Address\Repositories\Barangays;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Yajra\Address\Entities\Barangay;
 use Yajra\Address\Repositories\EloquentBaseRepository;
 
 class BarangaysRepositoryEloquent extends EloquentBaseRepository implements BarangaysRepository
 {
-    /**
-     * Get barangays by region, province and city ID.
-     *
-     * @param int $cityId
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getByCity($cityId)
+    public function getByCity(string $cityId): Collection
     {
         return $this->getModel()
-                    ->newQuery()
-                    ->where('city_id', $cityId)
-                    ->orderBy('name', 'asc')
-                    ->get();
+            ->newQuery()
+            ->where('city_id', $cityId)
+            ->orderBy('name', 'asc')
+            ->get();
     }
 
     /**
-     * Get repository model.
-     *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model<\Yajra\Address\Entities\Barangay>
      */
-    public function getModel()
+    public function getModel(): Model
     {
         $model = config('address.models.barangay', Barangay::class);
 
         return new $model;
     }
 
-    /**
-     * Get barangays by region, province and city ID.
-     *
-     * @param int $regionId
-     * @param int $provinceId
-     * @param int $cityId
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getByProvinceRegionAndCityId($regionId, $provinceId, $cityId)
+    public function getByProvinceRegionAndCityId(string $regionId, string $provinceId, string $cityId): Collection
     {
         return $this->getModel()
-                    ->newQuery()
-                    ->where('region_id', $regionId)
-                    ->where('province_id', $provinceId)
-                    ->where('city_id', $cityId)
-                    ->orderBy('name', 'asc')
-                    ->get();
+            ->newQuery()
+            ->where('region_id', $regionId)
+            ->where('province_id', $provinceId)
+            ->where('city_id', $cityId)
+            ->orderBy('name', 'asc')
+            ->get();
     }
 }

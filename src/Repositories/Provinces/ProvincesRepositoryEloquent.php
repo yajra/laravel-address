@@ -2,28 +2,22 @@
 
 namespace Yajra\Address\Repositories\Provinces;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Yajra\Address\Entities\Province;
 use Yajra\Address\Repositories\EloquentBaseRepository;
 
 class ProvincesRepositoryEloquent extends EloquentBaseRepository implements ProvincesRepository
 {
-    /**
-     * Get province by region ID.
-     *
-     * @param int $regionId
-     * @return \Illuminate\Database\Eloquent\Collection<array-key, \Yajra\Address\Entities\Province>
-     */
-    public function getProvinceByRegion($regionId)
+    public function getProvinceByRegion(string $regionId): Collection
     {
         return $this->getModel()->newQuery()->where('region_id', $regionId)->orderBy('name', 'asc')->get();
     }
 
     /**
-     * Get repository model.
-     *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model<Province>
      */
-    public function getModel()
+    public function getModel(): Model
     {
         $model = config('address.models.province', Province::class);
 

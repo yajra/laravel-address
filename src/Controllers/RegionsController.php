@@ -8,18 +8,10 @@ use Yajra\Address\Repositories\Regions\RegionsRepository;
 class RegionsController extends Controller
 {
     /**
-     * @var RegionsRepository
-     */
-    private $repository;
-
-    /**
      * RegionsController constructor.
-     *
-     * @param RegionsRepository $repository
      */
-    public function __construct(RegionsRepository $repository)
+    public function __construct(private RegionsRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     /**

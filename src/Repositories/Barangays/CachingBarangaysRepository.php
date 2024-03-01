@@ -3,60 +3,25 @@
 namespace Yajra\Address\Repositories\Barangays;
 
 use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Database\Eloquent\Collection;
 
 class CachingBarangaysRepository extends BarangaysRepositoryEloquent implements BarangaysRepository
 {
-    /**
-     * @var \App\Repositories\Utilities\BarangaysRepository
-     */
-    protected $repository;
-
-    /**
-     * @var \Illuminate\Contracts\Cache\Repository
-     */
-    protected $cache;
-
-    /**
-     * CachingBarangaysRepository constructor.
-     *
-     * @param BarangaysRepository $repository
-     * @param Cache               $cache
-     */
-    public function __construct(BarangaysRepository $repository, Cache $cache)
+    public function __construct(public BarangaysRepository $repository, public Cache $cache)
     {
-        $this->repository = $repository;
-        $this->cache      = $cache;
-
         parent::__construct();
     }
 
-    /**
-     * Get barangays by region, province and city ID.
-     *
-     * @param int $regionId
-     * @param int $provinceId
-     * @param int $cityId
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getByProvinceRegionAndCityId($regionId, $provinceId, $cityId)
+    public function getByProvinceRegionAndCityId(string $regionId, string $provinceId, string $cityId): Collection
     {
         $key = "barangays.{$regionId}.{$provinceId}.{$cityId}";
 
-        return $this->cache->rememberForever($key, function () use ($provinceId, $regionId, $cityId) {
-            return $this->repository->getByProvinceRegionAndCityId($regionId, $provinceId, $cityId);
-        });
+        return $this->cache->rememberForever($key,
+            fn () => $this->repository->getByProvinceRegionAndCityId($regionId, $provinceId, $cityId));
     }
 
-    /**
-     * Get barangays by region, province and city ID.
-     *
-     * @param int $cityId
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getByCity($cityId)
+    public function getByCity(string $cityId): Collection
     {
-        return $this->cache->rememberForever("barangays.{$cityId}", function () use ($cityId) {
-            return $this->repository->getByCity($cityId);
-        });
+        return $this->cache->rememberForever("barangays.{$cityId}", fn () => $this->repository->getByCity($cityId));
     }
 }

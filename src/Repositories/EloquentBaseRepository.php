@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-abstract class EloquentBaseRepository extends RepositoryAbstract implements EloquentRepositoryInterface
+abstract class EloquentBaseRepository extends RepositoryAbstract
 {
     public function __construct()
     {
@@ -46,11 +46,12 @@ abstract class EloquentBaseRepository extends RepositoryAbstract implements Eloq
 
     public function update(array $attributes, Model|int $id): Model
     {
-        if ($id instanceof Model) {
-            $id = $id->getKey();
+        if (is_int($id)) {
+            $model = $this->model->newQuery()->findOrFail($id);
+        } else {
+            $model = $id;
         }
 
-        $model = $this->model->newQuery()->findOrFail($id);
         $model->fill($attributes);
         $model->save();
 
@@ -64,11 +65,12 @@ abstract class EloquentBaseRepository extends RepositoryAbstract implements Eloq
      */
     public function delete(Model|int $id): ?bool
     {
-        if ($id instanceof Model) {
-            $id = $id->getKey();
+        if (is_int($id)) {
+            $model = $this->model->newQuery()->findOrFail($id);
+        } else {
+            $model = $id;
         }
 
-        $model = $this->find($id);
         $this->resetModel();
 
         return $model->delete();

@@ -10,8 +10,13 @@ class RegionsRepositoryEloquent extends EloquentBaseRepository implements Region
 {
     public function getModel(): Model
     {
-        $model = config('address.models.region', Region::class);
+        $class = config('address.models.region', Region::class);
+        $model = new $class;
 
-        return new $model;
+        if (! is_subclass_of($model, Region::class)) {
+            return new Region;
+        }
+
+        return $model;
     }
 }

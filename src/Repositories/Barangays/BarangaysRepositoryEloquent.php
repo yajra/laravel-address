@@ -19,13 +19,18 @@ class BarangaysRepositoryEloquent extends EloquentBaseRepository implements Bara
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model<\Yajra\Address\Entities\Barangay>
+     * @return Barangay
      */
     public function getModel(): Model
     {
-        $model = config('address.models.barangay', Barangay::class);
+        $class = config('address.models.barangay', Barangay::class);
+        $model = new $class;
 
-        return new $model;
+        if (! is_subclass_of($model, Barangay::class)) {
+            return new Barangay;
+        }
+
+        return $model;
     }
 
     public function getByRegionProvinceAndCityId(string $regionId, string $provinceId, string $cityId): Collection

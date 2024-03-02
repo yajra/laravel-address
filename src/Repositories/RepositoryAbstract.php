@@ -2,6 +2,7 @@
 
 namespace Yajra\Address\Repositories;
 
+use BadMethodCallException;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class RepositoryAbstract
@@ -19,7 +20,13 @@ abstract class RepositoryAbstract
         $class = $instance->getModel()::class;
         $model = new $class;
 
-        return call_user_func_array([$model, $method], $parameters);
+        $callback = [$model, $method];
+
+        if (! is_callable($callback)) {
+            throw new BadMethodCallException("Method [{$method}] does not exist.");
+        }
+
+        return call_user_func_array($callback, $parameters);
     }
 
     /**
@@ -34,6 +41,12 @@ abstract class RepositoryAbstract
      */
     public function __call(string $method, array $parameters)
     {
-        return call_user_func_array([$this->getModel(), $method], $parameters);
+        $callback = [$this->getModel(), $method];
+
+        if (! is_callable($callback)) {
+            throw new BadMethodCallException("Method [{$method}] does not exist.");
+        }
+
+        return call_user_func_array($callback, $parameters);
     }
 }

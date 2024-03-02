@@ -76,6 +76,7 @@ class AddressServiceProvider extends ServiceProvider
     protected function setupMacro(): void
     {
         Blueprint::macro('address', function () {
+            /** @var Blueprint $this */
             $this->string('street')->nullable();
             $this->string('barangay_id', 9)->nullable()->index();
             $this->string('city_id', 6)->nullable()->index();
@@ -84,6 +85,7 @@ class AddressServiceProvider extends ServiceProvider
         });
 
         Blueprint::macro('dropAddress', function () {
+            /** @var Blueprint $this */
             $this->dropColumn(['region_id', 'province_id', 'city_id', 'barangay_id', 'street']);
         });
     }
@@ -95,19 +97,19 @@ class AddressServiceProvider extends ServiceProvider
     {
         $this->app->singleton(RegionsRepository::class, fn () => new CachingRegionsRepository(
             $this->app->make(RegionsRepositoryEloquent::class),
-            $this->app['cache.store']
+            resolve('cache.store')
         ));
         $this->app->singleton(ProvincesRepository::class, fn () => new CachingProvincesRepository(
             $this->app->make(ProvincesRepositoryEloquent::class),
-            $this->app['cache.store']
+            resolve('cache.store')
         ));
         $this->app->singleton(CitiesRepository::class, fn () => new CachingCitiesRepository(
             $this->app->make(CitiesRepositoryEloquent::class),
-            $this->app['cache.store']
+            resolve('cache.store')
         ));
         $this->app->singleton(BarangaysRepository::class, fn () => new CachingBarangaysRepository(
             $this->app->make(BarangaysRepositoryEloquent::class),
-            $this->app['cache.store']
+            resolve('cache.store')
         ));
     }
 }

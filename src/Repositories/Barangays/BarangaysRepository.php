@@ -4,9 +4,8 @@ namespace Yajra\Address\Repositories\Barangays;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Yajra\Address\Repositories\EloquentRepositoryInterface;
 
-interface BarangaysRepository extends EloquentRepositoryInterface
+interface BarangaysRepository
 {
     /**
      * Get barangays by region, province and city ID.
@@ -23,7 +22,7 @@ interface BarangaysRepository extends EloquentRepositoryInterface
     public function getByCity(string $cityId): Collection;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model<\Yajra\Address\Entities\Barangay>
+     * @return \Yajra\Address\Entities\Barangay
      */
     public function getModel(): Model;
 }

@@ -15,12 +15,17 @@ class ProvincesRepositoryEloquent extends EloquentBaseRepository implements Prov
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model<Province>
+     * @return Province
      */
     public function getModel(): Model
     {
-        $model = config('address.models.province', Province::class);
+        $class = config('address.models.province', Province::class);
+        $model = new $class;
 
-        return new $model;
+        if (! is_subclass_of($model, Province::class)) {
+            return new Province;
+        }
+
+        return $model;
     }
 }

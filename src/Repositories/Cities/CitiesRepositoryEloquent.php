@@ -20,13 +20,18 @@ class CitiesRepositoryEloquent extends EloquentBaseRepository implements CitiesR
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model<\Yajra\Address\Entities\City>
+     * @return City
      */
     public function getModel(): Model
     {
-        $model = config('address.models.city', City::class);
+        $class = config('address.models.city', City::class);
+        $model = new $class;
 
-        return new $model;
+        if (! is_subclass_of($model, City::class)) {
+            return new City;
+        }
+
+        return $model;
     }
 
     public function getByRegion(string $regionId): Collection

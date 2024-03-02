@@ -4,9 +4,8 @@ namespace Yajra\Address\Repositories\Provinces;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Yajra\Address\Repositories\EloquentRepositoryInterface;
 
-interface ProvincesRepository extends EloquentRepositoryInterface
+interface ProvincesRepository
 {
     /**
      * @return \Illuminate\Database\Eloquent\Collection<array-key, \Yajra\Address\Entities\Province>
@@ -19,7 +18,7 @@ interface ProvincesRepository extends EloquentRepositoryInterface
     public function all(): Collection;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model<\Yajra\Address\Entities\Province>
+     * @return \Yajra\Address\Entities\Province
      */
     public function getModel(): Model;
 }

@@ -9,17 +9,11 @@
 
 A package for providing Philippines Address lookup API with Laravel.
 
-## Install
-
-- Via Composer
+## Installation
 
 ``` bash
 $ composer require yajra/laravel-address
 ```
-
-## Providers and Config
-
-> If you are using Laravel 5.5+ then the steps below are optional.
 
 ### Register service provider (Optional on Laravel 5.5+)
 

@@ -41,8 +41,17 @@ $ php artisan vendor:publish
 
 ## Required Setup (Migration and Seeder)
 
-- Run the address migration. `php artisan migrate`
-- Run the address seeder. `php artisan db:seed Yajra\Address\Seeders\AddressSeeder`
+- Run the address migration. 
+
+```bash
+php artisan migrate
+```
+
+- Run the address seeder. 
+
+```bash
+php artisan db:seed Yajra\\Address\\Seeders\\AddressSeeder
+````
 
 ## Routes
 

@@ -10,15 +10,11 @@ use Yajra\Address\Entities\Region;
 class AddressSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     *
-     * @return void
-     *
-     * @throws \Box\Spout\Common\Exception\IOException
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
-     * @throws \Box\Spout\Reader\Exception\ReaderNotOpenedException
+     * @throws \OpenSpout\Common\Exception\IOException
+     * @throws \OpenSpout\Common\Exception\UnsupportedTypeException
+     * @throws \OpenSpout\Reader\Exception\ReaderNotOpenedException
      */
-    public function run()
+    public function run(): void
     {
         $publication = config('address.publication.path', __DIR__.'/publication/PSGC_Publication_Dec2019.xlsx');
         $sheet = config('address.publication.sheet', 4);
@@ -29,6 +25,7 @@ class AddressSeeder extends Seeder
         $barangays = [];
 
         $this->command->info(sprintf('Parsing PSA official PSGC publication (%s).', $publication));
+
         (new FastExcel)
             ->sheet($sheet)
             ->import($publication, function ($line) use (&$regions, &$provinces, &$cities, &$barangays) {

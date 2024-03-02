@@ -33,9 +33,6 @@
         "pestphp/pest-plugin-laravel": "^2.3"
     },
     "autoload": {
-      "classmap": [
-        "database"
-      ],
       "psr-4": {
             "Yajra\\Address\\": "src",
             "Yajra\\Address\\Seeders\\": "database/seeders"

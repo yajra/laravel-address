@@ -1,5 +1,7 @@
 <?php
 
+namespace Yajra\Address\Seeders;
+
 use Illuminate\Database\Seeder;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Yajra\Address\Entities\Barangay;

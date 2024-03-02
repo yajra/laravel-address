@@ -12,19 +12,23 @@ A package for providing Philippines Address lookup API with Laravel.
 ## Install
 
 - Via Composer
+
 ``` bash
 $ composer require yajra/laravel-address
 ```
 
 ## Providers and Config
+
 > If you are using Laravel 5.5+ then the steps below are optional.
 
-- Register service provider
+### Register service provider (Optional on Laravel 5.5+)
+
 ```php
 Yajra\Address\AddressServiceProvider::class
 ```
 
-- Publish config
+### Publish config (Optional)
+
 ```bash
 $ php artisan vendor:publish
 ```
@@ -38,7 +42,7 @@ $ php artisan vendor:publish
 ## Required Setup (Migration and Seeder)
 
 - Run the address migration. `php artisan migrate`
-- Run the address seeder. `php artisan db:seed --class=\\AddressSeeder`
+- Run the address seeder. `php artisan db:seed Yajra\Address\Seeders\AddressSeeder`
 
 ## Routes
 

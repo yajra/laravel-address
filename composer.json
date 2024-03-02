@@ -34,7 +34,8 @@
         "database"
       ],
       "psr-4": {
-            "Yajra\\Address\\": "src"
+            "Yajra\\Address\\": "src",
+            "Yajra\\Address\\Seeders\\": "database/seeders"
         }
     },
     "autoload-dev": {

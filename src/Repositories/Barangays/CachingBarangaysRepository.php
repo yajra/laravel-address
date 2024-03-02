@@ -12,12 +12,12 @@ class CachingBarangaysRepository extends BarangaysRepositoryEloquent implements 
         parent::__construct();
     }
 
-    public function getByProvinceRegionAndCityId(string $regionId, string $provinceId, string $cityId): Collection
+    public function getByRegionProvinceAndCityId(string $regionId, string $provinceId, string $cityId): Collection
     {
         $key = "barangays.{$regionId}.{$provinceId}.{$cityId}";
 
         return $this->cache->rememberForever($key,
-            fn () => $this->repository->getByProvinceRegionAndCityId($regionId, $provinceId, $cityId));
+            fn () => $this->repository->getByRegionProvinceAndCityId($regionId, $provinceId, $cityId));
     }
 
     public function getByCity(string $cityId): Collection

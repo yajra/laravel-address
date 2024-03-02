@@ -28,7 +28,7 @@ class BarangaysRepositoryEloquent extends EloquentBaseRepository implements Bara
         return new $model;
     }
 
-    public function getByProvinceRegionAndCityId(string $regionId, string $provinceId, string $cityId): Collection
+    public function getByRegionProvinceAndCityId(string $regionId, string $provinceId, string $cityId): Collection
     {
         return $this->getModel()
             ->newQuery()

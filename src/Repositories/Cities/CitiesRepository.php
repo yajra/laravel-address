@@ -3,6 +3,7 @@
 namespace Yajra\Address\Repositories\Cities;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Yajra\Address\Repositories\EloquentRepositoryInterface;
 
 interface CitiesRepository extends EloquentRepositoryInterface
@@ -12,7 +13,7 @@ interface CitiesRepository extends EloquentRepositoryInterface
      *
      * @return \Illuminate\Database\Eloquent\Collection<\Yajra\Address\Entities\City>
      */
-    public function getByProvinceAndRegion(string $regionId, string $provinceId): Collection;
+    public function getByRegionAndProvince(string $regionId, string $provinceId): Collection;
 
     /**
      * Get cities by province.
@@ -27,4 +28,9 @@ interface CitiesRepository extends EloquentRepositoryInterface
      * @return \Illuminate\Database\Eloquent\Collection<\Yajra\Address\Entities\City>
      */
     public function getByRegion(string $regionId): Collection;
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Model<\Yajra\Address\Entities\City>
+     */
+    public function getModel(): Model;
 }

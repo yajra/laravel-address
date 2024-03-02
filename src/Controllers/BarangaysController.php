@@ -2,37 +2,26 @@
 
 namespace Yajra\Address\Controllers;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Routing\Controller;
 use Yajra\Address\Repositories\Barangays\BarangaysRepository;
 
 class BarangaysController extends Controller
 {
-    /**
-     * BarangaysController constructor.
-     */
     public function __construct(protected BarangaysRepository $repository)
     {
     }
 
-    /**
-     * @param  string  $cityId
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getByCity($cityId)
+    public function getByCity(string $cityId): Collection
     {
         return $this->repository->getByCity($cityId);
     }
 
-    /**
-     * Get barangays by region, province and city ID.
-     *
-     * @param  string  $regionId
-     * @param  string  $provinceId
-     * @param  string  $cityId
-     * @return string
-     */
-    public function getBarangaysByRegionProvinceCityId($regionId, $provinceId, $cityId)
-    {
-        return $this->repository->getByProvinceRegionAndCityId($regionId, $provinceId, $cityId);
+    public function getBarangaysByRegionProvinceCityId(
+        string $regionId,
+        string $provinceId,
+        string $cityId
+    ): Collection {
+        return $this->repository->getByRegionProvinceAndCityId($regionId, $provinceId, $cityId);
     }
 }

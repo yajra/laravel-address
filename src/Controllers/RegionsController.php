@@ -2,24 +2,17 @@
 
 namespace Yajra\Address\Controllers;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Routing\Controller;
 use Yajra\Address\Repositories\Regions\RegionsRepository;
 
 class RegionsController extends Controller
 {
-    /**
-     * RegionsController constructor.
-     */
-    public function __construct(private RegionsRepository $repository)
+    public function __construct(protected RegionsRepository $repository)
     {
     }
 
-    /**
-     * Get all regions.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function all()
+    public function all(): Collection
     {
         return $this->repository->all();
     }

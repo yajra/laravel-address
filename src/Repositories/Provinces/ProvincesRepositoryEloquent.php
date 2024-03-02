@@ -9,7 +9,7 @@ use Yajra\Address\Repositories\EloquentBaseRepository;
 
 class ProvincesRepositoryEloquent extends EloquentBaseRepository implements ProvincesRepository
 {
-    public function getProvinceByRegion(string $regionId): Collection
+    public function getByRegion(string $regionId): Collection
     {
         return $this->getModel()->newQuery()->where('region_id', $regionId)->orderBy('name', 'asc')->get();
     }

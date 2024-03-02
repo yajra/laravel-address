@@ -12,11 +12,11 @@ class CachingRegionsRepository extends RegionsRepositoryEloquent implements Regi
         parent::__construct();
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection<array-key, \Yajra\Address\Entities\Region>
-     */
     public function all(): Collection
     {
-        return $this->cache->rememberForever('regions.all', fn () => $this->repository->getModel()->query()->orderBy('region_id', 'asc')->get());
+        return $this->cache->rememberForever(
+            'regions.all',
+            fn () => $this->repository->getModel()->query()->orderBy('region_id', 'asc')->get()
+        );
     }
 }

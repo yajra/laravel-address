@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('city_id', 6)->index();
 
             $table->index(['region_id', 'province_id'], 'cities_idx_1');
-            $table->index([ 'region_id', 'province_id', 'city_id'], 'cities_idx_2');
+            $table->index(['region_id', 'province_id', 'city_id'], 'cities_idx_2');
         });
 
         Schema::create('barangays', function (Blueprint $table) {

@@ -2,38 +2,23 @@
 
 namespace Yajra\Address\Controllers;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Routing\Controller;
 use Yajra\Address\Repositories\Cities\CitiesRepository;
 
 class CitiesController extends Controller
 {
-    /**
-     * CitiesController constructor.
-     */
     public function __construct(protected CitiesRepository $repository)
     {
     }
 
-    /**
-     * Get cities by province.
-     *
-     * @param  string  $provinceId
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getByProvince($provinceId)
+    public function getByProvince(string $provinceId): Collection
     {
         return $this->repository->getByProvince($provinceId);
     }
 
-    /**
-     * Get cities by region and province Id.
-     *
-     * @param  string  $regionId
-     * @param  string  $provinceId
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getByRegionAndProvince($regionId, $provinceId)
+    public function getByRegionAndProvince(string $regionId, string $provinceId): Collection
     {
-        return $this->repository->getByProvinceAndRegion($regionId, $provinceId);
+        return $this->repository->getByRegionAndProvince($regionId, $provinceId);
     }
 }

@@ -12,9 +12,9 @@ class CachingProvincesRepository extends ProvincesRepositoryEloquent implements 
         parent::__construct();
     }
 
-    public function getProvinceByRegion(string $regionId): Collection
+    public function getByRegion(string $regionId): Collection
     {
-        return $this->cache->rememberForever("provinces.{$regionId}", fn () => $this->repository->getProvinceByRegion($regionId));
+        return $this->cache->rememberForever("provinces.{$regionId}", fn () => $this->repository->getByRegion($regionId));
     }
 
     public function all(): Collection

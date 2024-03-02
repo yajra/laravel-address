@@ -24,9 +24,6 @@ use Yajra\Address\Repositories\Regions\RegionsRepositoryEloquent;
 
 class AddressServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap services.
-     */
     public function boot(): void
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
@@ -63,13 +60,31 @@ class AddressServiceProvider extends ServiceProvider
             'middleware' => config('address.middleware'),
             'as' => 'address.',
         ], function () {
-            Route::get('regions', RegionsController::class.'@all')->name('regions.all');
-            Route::get('provinces', ProvincesController::class.'@all')->name('provinces.all');
-            Route::get('provinces/{regionId}', ProvincesController::class.'@getByRegion')->name('provinces.region');
-            Route::get('cities/{provinceId}', CitiesController::class.'@getByProvince')->name('cities.province');
-            Route::get('cities/{regionId}/{provinceId}', CitiesController::class.'@getByRegionAndProvince')
-                ->name('cities.region.province');
-            Route::get('barangays/{cityId}', BarangaysController::class.'@getByCity')->name('barangay.city');
+            // Regions routes
+            Route::get('regions', [RegionsController::class, 'all'])->name('regions.all');
+
+            // Provinces routes
+            Route::get('provinces', [ProvincesController::class, 'all'])->name('provinces.all');
+            Route::get(
+                'provinces/{regionId}',
+                [ProvincesController::class, 'getByRegion']
+            )->name('provinces.region');
+
+            // Cities routes
+            Route::get(
+                'cities/{provinceId}',
+                [CitiesController::class, 'getByProvince']
+            )->name('cities.province');
+            Route::get(
+                'cities/{regionId}/{provinceId}',
+                [CitiesController::class, 'getByRegionAndProvince']
+            )->name('cities.region.province');
+
+            // Barangays routes
+            Route::get(
+                'barangays/{cityId}',
+                [BarangaysController::class, 'getByCity']
+            )->name('barangay.city');
         });
     }
 

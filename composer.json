@@ -28,7 +28,9 @@
         "phpunit/phpunit" : "^10",
         "larastan/larastan": "^2.9",
         "rector/rector": "^1.0",
-        "orchestra/testbench": "^8.21"
+        "orchestra/testbench": "^8.21",
+        "pestphp/pest": "^2.34",
+        "pestphp/pest-plugin-laravel": "^2.3"
     },
     "autoload": {
       "classmap": [
@@ -41,7 +43,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Yajra\\Address\\Test\\": "tests"
+            "Yajra\\Address\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -55,6 +57,11 @@
             "providers": [
                 "Yajra\\Address\\AddressServiceProvider"
             ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
         }
     }
 }

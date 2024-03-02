@@ -1,13 +1,11 @@
 # Philippines Address Lookup for Laravel
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
-
 [![Continuous Integration](https://github.com/yajra/laravel-address/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/yajra/laravel-address/actions/workflows/continuous-integration.yml)
 [![Static Analysis](https://github.com/yajra/laravel-address/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/yajra/laravel-address/actions/workflows/static-analysis.yml)
-
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
+[![Software License][ico-license]](LICENSE.md)
 
 A package for providing Philippines Address lookup API with Laravel.
 

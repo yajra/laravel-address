@@ -18,7 +18,7 @@ class AddressSeeder extends Seeder
      */
     public function run(): void
     {
-        $publication = config('address.publication.path', __DIR__.'/publication/PSGC_Publication_Dec2019.xlsx');
+        $publication = config('address.publication.path', __DIR__.'/publication/PSGC-3Q-2024-Publication-Datafile.xlsx');
         $sheet = config('address.publication.sheet', 4);
 
         $regions = [];
@@ -32,7 +32,7 @@ class AddressSeeder extends Seeder
             ->sheet($sheet)
             ->import($publication, function ($line) use (&$regions, &$provinces, &$cities, &$barangays) {
                 $attributes = [];
-                $attributes['code'] = $line['Code'];
+                $attributes['code'] = $line['10-digit PSGC'];
                 $attributes['name'] = $line['Name'];
                 $attributes['region_id'] = substr($attributes['code'], 0, 2);
 
@@ -44,21 +44,21 @@ class AddressSeeder extends Seeder
                     case 'Dist':
                     case 'Prov':
                     case '':
-                        $attributes['province_id'] = substr($attributes['code'], 0, 4);
+                        $attributes['province_id'] = substr($attributes['code'], 0, 5);
 
                         $provinces[] = $attributes;
                         break;
 
                     case 'Bgy':
-                        $attributes['province_id'] = substr($attributes['code'], 0, 4);
-                        $attributes['city_id'] = substr($attributes['code'], 0, 6);
+                        $attributes['province_id'] = substr($attributes['code'], 0, 5);
+                        $attributes['city_id'] = substr($attributes['code'], 0, 7);
 
                         $barangays[] = $attributes;
                         break;
 
                     default: // City, SubMun, Mun
-                        $attributes['province_id'] = substr($attributes['code'], 0, 4);
-                        $attributes['city_id'] = substr($attributes['code'], 0, 6);
+                        $attributes['province_id'] = substr($attributes['code'], 0, 5);
+                        $attributes['city_id'] = substr($attributes['code'], 0, 7);
 
                         $cities[] = $attributes;
                         break;

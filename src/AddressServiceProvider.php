@@ -93,9 +93,9 @@ class AddressServiceProvider extends ServiceProvider
         Blueprint::macro('address', function () {
             /** @var Blueprint $this */
             $this->string('street')->nullable();
-            $this->string('barangay_id', 9)->nullable()->index();
-            $this->string('city_id', 6)->nullable()->index();
-            $this->string('province_id', 4)->nullable()->index();
+            $this->string('barangay_id', 10)->nullable()->index();
+            $this->string('city_id', 7)->nullable()->index();
+            $this->string('province_id', 5)->nullable()->index();
             $this->string('region_id', 2)->nullable()->index();
         });
 

@@ -12,7 +12,7 @@ A package for providing Philippines Address lookup API with Laravel.
 ## Installation
 
 ``` bash
-$ composer require yajra/laravel-address
+composer require yajra/laravel-address
 ```
 
 ### Register service provider (Optional on Laravel 5.5+)
@@ -24,7 +24,7 @@ Yajra\Address\AddressServiceProvider::class
 ### Publish config (Optional)
 
 ```bash
-$ php artisan vendor:publish
+php artisan vendor:publish
 ```
 
 ## Available Config

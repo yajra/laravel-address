@@ -12,6 +12,9 @@ class CachingRegionsRepository extends RegionsRepositoryEloquent implements Regi
         parent::__construct();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<\Yajra\Address\Entities\Region>
+     */
     public function all(): Collection
     {
         return $this->cache->rememberForever(

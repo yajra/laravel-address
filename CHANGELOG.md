@@ -2,6 +2,10 @@
 
 All Notable changes to `laravel-address` will be documented in this file
 
+## v12.0.2 - 2024-11-06
+
+- fix: manila city and sub municipality
+
 ## v12.0.1 - 2024-10-23
 
 - fix: address builder macro

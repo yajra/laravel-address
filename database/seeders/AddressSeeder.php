@@ -53,14 +53,26 @@ class AddressSeeder extends Seeder
                         $attributes['province_id'] = substr($attributes['code'], 0, 5);
                         $attributes['city_id'] = substr($attributes['code'], 0, 7);
 
-                        $barangays[] = $attributes;
+                        $barangays[] =  $attributes;
                         break;
 
                     default: // City, SubMun, Mun
+                        // Do not insert City of Manila
+                        if ($attributes['code'] === '1380600000') {
+                            break;
+                        }
+
                         $attributes['province_id'] = substr($attributes['code'], 0, 5);
                         $attributes['city_id'] = substr($attributes['code'], 0, 7);
 
-                        $cities[] = $attributes;
+                        $name = str_replace('City of ', '', $attributes['name']);
+
+                        // If City of Manila, append the city name
+                        if ($attributes['province_id'] === '13806') {
+                            $name .= ' Manila';
+                        }
+
+                        $cities[] = [...$attributes, 'name' => $name];
                         break;
                 }
             });

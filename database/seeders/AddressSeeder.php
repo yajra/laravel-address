@@ -33,7 +33,7 @@ class AddressSeeder extends Seeder
             ->import($publication, function ($line) use (&$regions, &$provinces, &$cities, &$barangays) {
                 $attributes = [];
                 $attributes['code'] = $line['10-digit PSGC'];
-                $attributes['name'] = $line['Name'];
+                $attributes['name'] = trim($line['Name']);
                 $attributes['region_id'] = substr($attributes['code'], 0, 2);
 
                 switch ($line['Geographic Level']) {

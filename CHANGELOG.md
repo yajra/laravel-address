@@ -2,6 +2,10 @@
 
 All Notable changes to `laravel-address` will be documented in this file
 
+## v12.1.1 - 2024-12-02
+
+- fix: missing province of HUC cities
+
 ## v12.1.0 - 2024-11-23
 
 - fix: add correspondence code

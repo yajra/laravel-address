@@ -36,8 +36,17 @@ class AddressSeeder extends Seeder
                 $attributes['correspondence_code'] = $line['Correspondence Code'];
                 $attributes['name'] = trim($line['Name']);
                 $attributes['region_id'] = substr($attributes['code'], 0, 2);
+                $geographicLevel = $line['Geographic Level'];
+                $cityClass = $line['City Class'];
 
-                switch ($line['Geographic Level']) {
+                if ($geographicLevel === 'City' && $cityClass === 'HUC') {
+                    $attributes['province_id'] = substr($attributes['code'], 0, 5);
+                    $name = trim($line['Name']);
+
+                    $provinces[] = [...$attributes, 'name' => $name];
+                }
+
+                switch ($geographicLevel) {
                     case 'Reg':
                         $regions[] = $attributes;
                         break;
@@ -67,11 +76,6 @@ class AddressSeeder extends Seeder
                         $attributes['city_id'] = substr($attributes['code'], 0, 7);
 
                         $name = str_replace('City of ', '', $attributes['name']);
-
-                        // If City of Manila, append the city name
-                        if ($attributes['province_id'] === '13806') {
-                            $name .= ' Manila';
-                        }
 
                         $cities[] = [...$attributes, 'name' => $name];
                         break;

@@ -2,6 +2,10 @@
 
 All Notable changes to `laravel-address` will be documented in this file
 
+## v12.1.2 - 2024-12-21
+
+- fix: missing province for Pateros #24
+
 ## v12.1.1 - 2024-12-02
 
 - fix: missing province of HUC cities

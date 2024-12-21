@@ -105,7 +105,7 @@ class AddressSeeder extends Seeder
         });
     }
 
-    protected function isMunicipalityInNCR(string $geographicLevel, $regionId): bool
+    protected function isMunicipalityInNCR(string $geographicLevel, string $regionId): bool
     {
         return in_array($geographicLevel, ['City', 'Mun']) && $regionId === '13';
     }

@@ -39,7 +39,7 @@ class AddressSeeder extends Seeder
                 $geographicLevel = $line['Geographic Level'];
                 $cityClass = $line['City Class'];
 
-                if ($geographicLevel === 'City' && $cityClass === 'HUC') {
+                if ($this->hasOwnProvince($geographicLevel, $attributes['region_id'], $cityClass)) {
                     $attributes['province_id'] = substr($attributes['code'], 0, 5);
                     $name = trim($line['Name']);
 
@@ -103,5 +103,21 @@ class AddressSeeder extends Seeder
         collect($barangays)->chunk(100)->each(function ($chunk) use ($barangay) {
             $barangay::query()->insert($chunk->toArray());
         });
+    }
+
+    protected function isMunicipalityInNCR(string $geographicLevel, string $regionId): bool
+    {
+        return in_array($geographicLevel, ['City', 'Mun']) && $regionId === '13';
+    }
+
+    protected function isHUC(string $geographicLevel, string $cityClass): bool
+    {
+        return $geographicLevel === 'City' && $cityClass === 'HUC';
+    }
+
+    protected function hasOwnProvince(string $geographicLevel, string $regionId, string $cityClass): bool
+    {
+        return $this->isMunicipalityInNCR($geographicLevel, $regionId)
+            || $this->isHUC($geographicLevel, $cityClass);
     }
 }

@@ -2,6 +2,10 @@ name: "Continuous Integration"
 
 on:
   push:
+    branches:
+      - master
+      - develop
+      - '*.x'
   pull_request:
   schedule:
     - cron: '0 0 * * *'
@@ -14,7 +18,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [8.2, 8.3]
+        php: [8.2, 8.3, 8.4]
         stability: [prefer-stable]
 
     name: PHP ${{ matrix.php }} - ${{ matrix.stability }}

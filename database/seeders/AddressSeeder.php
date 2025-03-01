@@ -63,7 +63,7 @@ class AddressSeeder extends Seeder
                         $attributes['province_id'] = substr($attributes['code'], 0, 5);
                         $attributes['city_id'] = substr($attributes['code'], 0, 7);
 
-                        $barangays[] =  $attributes;
+                        $barangays[] = $attributes;
                         break;
 
                     default: // City, SubMun, Mun

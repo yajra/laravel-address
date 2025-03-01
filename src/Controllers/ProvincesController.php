@@ -8,9 +8,7 @@ use Yajra\Address\Repositories\Provinces\ProvincesRepository;
 
 class ProvincesController extends Controller
 {
-    public function __construct(protected ProvincesRepository $repository)
-    {
-    }
+    public function __construct(protected ProvincesRepository $repository) {}
 
     public function all(): Collection
     {

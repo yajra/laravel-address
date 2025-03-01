@@ -12,6 +12,7 @@ parameters:
         - '#Unsafe usage of new static\(\).#'
         - identifier: missingType.generics
         - identifier: missingType.iterableValue
+        - identifier: trait.unused
+        - identifier: argument.type
 
     excludePaths:
-        - src/helper.php

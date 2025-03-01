@@ -8,9 +8,7 @@ use Yajra\Address\Repositories\Cities\CitiesRepository;
 
 class CitiesController extends Controller
 {
-    public function __construct(protected CitiesRepository $repository)
-    {
-    }
+    public function __construct(protected CitiesRepository $repository) {}
 
     public function getByProvince(string $provinceId): Collection
     {

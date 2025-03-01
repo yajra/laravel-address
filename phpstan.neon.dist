@@ -14,4 +14,3 @@ parameters:
         - identifier: missingType.iterableValue
 
     excludePaths:
-        - src/helper.php

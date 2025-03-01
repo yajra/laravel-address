@@ -2,6 +2,11 @@
 
 All Notable changes to `laravel-address` will be documented in this file
 
+## v12.2.0 - 2025-03-01
+
+- feat: Laravel 12 Support
+- feat: 4Q-2024 PSGC updates
+
 ## v12.1.2 - 2024-12-21
 
 - fix: missing province for Pateros #24

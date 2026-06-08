@@ -23,7 +23,7 @@ use Yajra\Address\Entities\Region;
 trait HasAddress
 {
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Region>
+     * @return BelongsTo<Region>
      */
     public function region(): BelongsTo
     {
@@ -31,7 +31,7 @@ trait HasAddress
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Province>
+     * @return BelongsTo<Province>
      */
     public function province(): BelongsTo
     {
@@ -39,7 +39,7 @@ trait HasAddress
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<City>
+     * @return BelongsTo<City>
      */
     public function city(): BelongsTo
     {
@@ -47,7 +47,7 @@ trait HasAddress
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Barangay>
+     * @return BelongsTo<Barangay>
      */
     public function barangay(): BelongsTo
     {

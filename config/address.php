@@ -31,7 +31,7 @@ return [
      * @see https://psa.gov.ph/classification/psgc/
      */
     'publication' => [
-        'path' => base_path('vendor/yajra/laravel-address/database/seeders/publication/PSGC-4Q-2024-Publication-Datafile.xlsx'),
+        'path' => base_path('vendor/yajra/laravel-address/database/seeders/publication/PSGC-1Q-2026-Publication-Datafile.xlsx'),
         'sheet' => 4,
     ],
 

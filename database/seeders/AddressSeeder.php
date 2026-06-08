@@ -3,6 +3,9 @@
 namespace Yajra\Address\Seeders;
 
 use Illuminate\Database\Seeder;
+use OpenSpout\Common\Exception\IOException;
+use OpenSpout\Common\Exception\UnsupportedTypeException;
+use OpenSpout\Reader\Exception\ReaderNotOpenedException;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Yajra\Address\Entities\Barangay;
 use Yajra\Address\Entities\City;
@@ -12,9 +15,9 @@ use Yajra\Address\Entities\Region;
 class AddressSeeder extends Seeder
 {
     /**
-     * @throws \OpenSpout\Common\Exception\IOException
-     * @throws \OpenSpout\Common\Exception\UnsupportedTypeException
-     * @throws \OpenSpout\Reader\Exception\ReaderNotOpenedException
+     * @throws IOException
+     * @throws UnsupportedTypeException
+     * @throws ReaderNotOpenedException
      */
     public function run(): void
     {
@@ -28,7 +31,8 @@ class AddressSeeder extends Seeder
 
         $this->command->info(sprintf('Parsing PSA official PSGC publication (%s).', $publication));
 
-        (new FastExcel)
+        /** @scrutinizer ignore-call */
+        @(new FastExcel)
             ->sheet($sheet)
             ->import($publication, function ($line) use (&$regions, &$provinces, &$cities, &$barangays) {
                 $attributes = [];
@@ -88,21 +92,21 @@ class AddressSeeder extends Seeder
 
         $this->command->info(sprintf('Seeding %s provinces.', count($provinces)));
         $province = config('address.models.province', Province::class);
-        collect($provinces)->chunk(100)->each(function ($chunk) use ($province) {
-            $province::query()->insert($chunk->toArray());
-        });
+        foreach (array_chunk($provinces, 500) as $chunk) {
+            $province::query()->insert($chunk);
+        }
 
         $city = config('address.models.city', City::class);
         $this->command->info(sprintf('Seeding %s cities & municipalities.', count($cities)));
-        collect($cities)->chunk(100)->each(function ($chunk) use ($city) {
-            $city::query()->insert($chunk->toArray());
-        });
+        foreach (array_chunk($cities, 500) as $chunk) {
+            $city::query()->insert($chunk);
+        }
 
         $this->command->info(sprintf('Seeding %s barangays.', count($barangays)));
         $barangay = config('address.models.barangay', Barangay::class);
-        collect($barangays)->chunk(100)->each(function ($chunk) use ($barangay) {
-            $barangay::query()->insert($chunk->toArray());
-        });
+        foreach (array_chunk($barangays, 500) as $chunk) {
+            $barangay::query()->insert($chunk);
+        }
     }
 
     protected function isMunicipalityInNCR(string $geographicLevel, string $regionId): bool

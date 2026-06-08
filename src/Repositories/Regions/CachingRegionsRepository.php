@@ -4,6 +4,7 @@ namespace Yajra\Address\Repositories\Regions;
 
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Database\Eloquent\Collection;
+use Yajra\Address\Entities\Region;
 
 class CachingRegionsRepository extends RegionsRepositoryEloquent implements RegionsRepository
 {
@@ -13,7 +14,7 @@ class CachingRegionsRepository extends RegionsRepositoryEloquent implements Regi
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<\Yajra\Address\Entities\Region>
+     * @return Collection<Region>
      */
     public function all(): Collection
     {

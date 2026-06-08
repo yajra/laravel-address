@@ -4,6 +4,7 @@ namespace Yajra\Address\Tests;
 
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Yajra\Address\AddressServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -12,7 +13,7 @@ abstract class TestCase extends BaseTestCase
     protected function getPackageProviders($app): array
     {
         return [
-            \Yajra\Address\AddressServiceProvider::class,
+            AddressServiceProvider::class,
         ];
     }
 }

@@ -3,6 +3,9 @@
 namespace Yajra\Address\Seeders;
 
 use Illuminate\Database\Seeder;
+use OpenSpout\Common\Exception\IOException;
+use OpenSpout\Common\Exception\UnsupportedTypeException;
+use OpenSpout\Reader\Exception\ReaderNotOpenedException;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Yajra\Address\Entities\Barangay;
 use Yajra\Address\Entities\City;
@@ -12,9 +15,9 @@ use Yajra\Address\Entities\Region;
 class AddressSeeder extends Seeder
 {
     /**
-     * @throws \OpenSpout\Common\Exception\IOException
-     * @throws \OpenSpout\Common\Exception\UnsupportedTypeException
-     * @throws \OpenSpout\Reader\Exception\ReaderNotOpenedException
+     * @throws IOException
+     * @throws UnsupportedTypeException
+     * @throws ReaderNotOpenedException
      */
     public function run(): void
     {
@@ -28,7 +31,8 @@ class AddressSeeder extends Seeder
 
         $this->command->info(sprintf('Parsing PSA official PSGC publication (%s).', $publication));
 
-        (new FastExcel)
+        /** @scrutinizer ignore-call */
+        @(new FastExcel)
             ->sheet($sheet)
             ->import($publication, function ($line) use (&$regions, &$provinces, &$cities, &$barangays) {
                 $attributes = [];

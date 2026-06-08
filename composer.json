@@ -21,7 +21,7 @@
         "illuminate/support": "^13.0",
         "illuminate/routing": "^13.0",
         "illuminate/database": "^13.0",
-        "rap2hpoutre/fast-excel": "^5.6.0",
+        "openspout/openspout": "^5.0",
         "spatie/laravel-html": "^3.11.3"
     },
     "require-dev": {

@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
 use OpenSpout\Reader\Exception\ReaderNotOpenedException;
-use Rap2hpoutre\FastExcel\FastExcel;
+use OpenSpout\Reader\XLSX\Reader;
 use Yajra\Address\Entities\Barangay;
 use Yajra\Address\Entities\City;
 use Yajra\Address\Entities\Province;
@@ -31,60 +31,83 @@ class AddressSeeder extends Seeder
 
         $this->command->info(sprintf('Parsing PSA official PSGC publication (%s).', $publication));
 
-        /** @scrutinizer ignore-call */
-        @(new FastExcel)
-            ->sheet($sheet)
-            ->import($publication, function ($line) use (&$regions, &$provinces, &$cities, &$barangays) {
-                $attributes = [];
-                $attributes['code'] = $line['10-digit PSGC'];
-                $attributes['correspondence_code'] = $line['Correspondence Code'];
-                $attributes['name'] = trim($line['Name']);
-                $attributes['region_id'] = substr($attributes['code'], 0, 2);
-                $geographicLevel = $line['Geographic Level'];
-                $cityClass = $line['City Class'];
+        $reader = new Reader;
+        $reader->open($publication);
 
-                if ($this->hasOwnProvince($geographicLevel, $attributes['region_id'], $cityClass)) {
-                    $attributes['province_id'] = substr($attributes['code'], 0, 5);
-                    $name = trim($line['Name']);
+        foreach ($reader->getSheetIterator() as $sheetItem) {
+            if ($sheetItem->getIndex() === ($sheet - 1)) {
+                $isFirstRow = true;
+                $headerRow = [];
 
-                    $provinces[] = [...$attributes, 'name' => $name];
-                }
+                foreach ($sheetItem->getRowIterator() as $row) {
+                    $rowData = $row->toArray();
 
-                switch ($geographicLevel) {
-                    case 'Reg':
-                        $regions[] = $attributes;
-                        break;
+                    if ($isFirstRow) {
+                        $headerRow = $rowData;
+                        $isFirstRow = false;
 
-                    case 'Dist':
-                    case 'Prov':
-                    case '':
+                        continue;
+                    }
+
+                    /** @var array<string, string> $line */
+                    $line = array_combine($headerRow, $rowData);
+
+                    $attributes = [];
+                    $attributes['code'] = $line['10-digit PSGC'];
+                    $attributes['correspondence_code'] = $line['Correspondence Code'];
+                    $attributes['name'] = trim($line['Name']);
+                    $attributes['region_id'] = substr($attributes['code'], 0, 2);
+                    $geographicLevel = $line['Geographic Level'];
+                    $cityClass = $line['City Class'];
+
+                    if ($this->hasOwnProvince($geographicLevel, $attributes['region_id'], $cityClass)) {
                         $attributes['province_id'] = substr($attributes['code'], 0, 5);
+                        $name = trim($line['Name']);
 
-                        $provinces[] = $attributes;
-                        break;
+                        $provinces[] = [...$attributes, 'name' => $name];
+                    }
 
-                    case 'Bgy':
-                        $attributes['province_id'] = substr($attributes['code'], 0, 5);
-                        $attributes['city_id'] = substr($attributes['code'], 0, 7);
-
-                        $barangays[] = $attributes;
-                        break;
-
-                    default: // City, SubMun, Mun
-                        // Do not insert City of Manila
-                        if ($attributes['code'] === '1380600000') {
+                    switch ($geographicLevel) {
+                        case 'Reg':
+                            $regions[] = $attributes;
                             break;
-                        }
 
-                        $attributes['province_id'] = substr($attributes['code'], 0, 5);
-                        $attributes['city_id'] = substr($attributes['code'], 0, 7);
+                        case 'Dist':
+                        case 'Prov':
+                        case '':
+                            $attributes['province_id'] = substr($attributes['code'], 0, 5);
 
-                        $name = str_replace('City of ', '', $attributes['name']);
+                            $provinces[] = $attributes;
+                            break;
 
-                        $cities[] = [...$attributes, 'name' => $name];
-                        break;
+                        case 'Bgy':
+                            $attributes['province_id'] = substr($attributes['code'], 0, 5);
+                            $attributes['city_id'] = substr($attributes['code'], 0, 7);
+
+                            $barangays[] = $attributes;
+                            break;
+
+                        default: // City, SubMun, Mun
+                            // Do not insert City of Manila
+                            if ($attributes['code'] === '1380600000') {
+                                break;
+                            }
+
+                            $attributes['province_id'] = substr($attributes['code'], 0, 5);
+                            $attributes['city_id'] = substr($attributes['code'], 0, 7);
+
+                            $name = str_replace('City of ', '', $attributes['name']);
+
+                            $cities[] = [...$attributes, 'name' => $name];
+                            break;
+                    }
                 }
-            });
+
+                break;
+            }
+        }
+
+        $reader->close();
 
         $this->command->info(sprintf('Seeding %s regions.', count($regions)));
         $region = config('address.models.region', Region::class);

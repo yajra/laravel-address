@@ -92,21 +92,21 @@ class AddressSeeder extends Seeder
 
         $this->command->info(sprintf('Seeding %s provinces.', count($provinces)));
         $province = config('address.models.province', Province::class);
-        collect($provinces)->chunk(100)->each(function ($chunk) use ($province) {
-            $province::query()->insert($chunk->toArray());
-        });
+        foreach (array_chunk($provinces, 500) as $chunk) {
+            $province::query()->insert($chunk);
+        }
 
         $city = config('address.models.city', City::class);
         $this->command->info(sprintf('Seeding %s cities & municipalities.', count($cities)));
-        collect($cities)->chunk(100)->each(function ($chunk) use ($city) {
-            $city::query()->insert($chunk->toArray());
-        });
+        foreach (array_chunk($cities, 500) as $chunk) {
+            $city::query()->insert($chunk);
+        }
 
         $this->command->info(sprintf('Seeding %s barangays.', count($barangays)));
         $barangay = config('address.models.barangay', Barangay::class);
-        collect($barangays)->chunk(100)->each(function ($chunk) use ($barangay) {
-            $barangay::query()->insert($chunk->toArray());
-        });
+        foreach (array_chunk($barangays, 500) as $chunk) {
+            $barangay::query()->insert($chunk);
+        }
     }
 
     protected function isMunicipalityInNCR(string $geographicLevel, string $regionId): bool
